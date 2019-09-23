@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+nav {
+	width: 300px;
+	height: 900px;
+	float: left;
+	background: blue;
+}
+
+nav li {
+	list-style-type: none;
+	font-size: 13px;
+}
+
+nav > ul > li { /* 메뉴목록 */
+	height: 25px;
+}
+
+nav .menu { /* 하위메뉴 ul */
+	padding-left: 15px;
+	margin-top: 15px;
+	display: none;
+}
+
+nav .menu li{ /* 하위메뉴 */
+	height: 20px;
+}
+
+#right {
+	width: 900px;
+	float: left;
+}
+
+section {
+	width: 900px;
+	background: yellow;
+}
+
+footer {
+	width: 900px;
+	height: 250px;
+	background: red;
+}
