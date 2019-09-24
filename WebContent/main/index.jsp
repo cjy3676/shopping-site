@@ -5,16 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../etc/main.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="../etc/main.css?after">
 <script src="../etc/main.js"></script>
 </head>
 <body>
 	<!-- 메인페이지 -->
-	<jsp:include page="../left.jsp" flush="false" />
+	<jsp:include page="../left.jsp" flush="false"/>
 
 	<div id="right">
-		<section>메인화면</section>
-		<jsp:include page="../footer.jsp" flush="false" />
+		<section class="index_section"></section>
+		<jsp:include page="../footer.jsp" flush="false"/>
 	</div>
 </body>
 </html>

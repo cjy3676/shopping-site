@@ -10,7 +10,13 @@ nav {
 	width: 300px;
 	height: 900px;
 	float: left;
-	background: blue;
+	position: fixed;
+}
+
+nav #logo {
+	font-size: 27px;
+	margin-left: 35px;
+	margin-top: 35px;
 }
 
 nav li {
@@ -18,7 +24,7 @@ nav li {
 	font-size: 13px;
 }
 
-nav > ul > li { /* 메뉴목록 */
+nav>ul>li { /* 메뉴목록 */
 	height: 25px;
 }
 
@@ -28,22 +34,224 @@ nav .menu { /* 하위메뉴 ul */
 	display: none;
 }
 
-nav .menu li{ /* 하위메뉴 */
+nav .menu li { /* 하위메뉴 */
 	height: 20px;
 }
 
 #right {
-	width: 900px;
+	height: 900px;
 	float: left;
+	margin-left: 300px;
 }
 
 section {
-	width: 900px;
-	background: yellow;
+	width: 100%;
+	/* background: blue; */
+}
+
+.index_section {
+	height: 900px;
+	background-image: url("../main/img/main.jpg");
+	background-attachment: fixed;	
+}
+
+.login_section {
+	width: 400px;
+	height: 900px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.login_section #first {
+	text-align: center;
+	width: 360px;
+	height: 150px;
+}
+
+.login_section #userid {
+	width: 250px;
+	height: 30px;
+	border: 1px solid #cccccc;
+	display: flex;
+	align-item: center;
+	font-size: 12px;
+	color: #cccccc;
+	padding-left: 8px;
+}
+
+.login_section #pwd {
+	width: 250px;
+	height: 30px;
+	border: 1px solid #cccccc;	
+	display: flex;
+	align-item: center;
+	font-size: 12px;
+	color: #cccccc;
+	margin-top: 5px;
+	padding-left: 8px;
+}
+
+.login_section #uid {
+	width: 150px;
+	height: 20px;
+	margin-left:20px;
+	border: none;
+}
+
+.login_section #pw {
+	width: 150px;
+	height: 20px;
+	margin-left: 8px;
+	border: none;
+}
+
+.login_section #outer {
+	width: 400px;
+	height: 80px;
+}
+
+.login_section #outer_left {
+	float: left;
+}
+
+.login_section #outer_right {
+	margin-left: 10px;
+	float: left;
+}
+
+.login_section #login {
+	width: 100px;
+	height: 70px;
+	background: black;
+	border: 1px solid #000000;
+	color: #ffffff;
+	font-weight: 900;
+	cursor: pointer;
+}
+
+.login_section #third {
+	font-size: 12px;
+	width: 400px;
+	height: 30px;
+}
+
+.login_section #fourth {
+	font-size: 12px;
+	width: 400px;
+	height: 30px;
+}
+
+.login_section #fifth {
+	width: 400px;
+	margin-top: 20px;
+}
+
+.login_section #fifth span {
+	display: inline-block;
+	width: 105px;
+	height: 25px;
+	border: none;
+	border-radius: 6px;
+	color: #ffffff;
+	font-size: 12px;
+	padding-left: 13px;
+	padding-top: 15px;
+}
+
+.login_section #fifth span:nth-child(1) {
+	background: #00c63d;
+}
+
+.login_section #fifth span:nth-child(2) {
+	background: #536fac;
+}
+
+.login_section #fifth span:nth-child(3) {
+	background: #fdeb1d;
+}
+
+.login_section #sixth {
+	width: 360px;
+	height: 60px;
+	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+}
+
+.login_section #sixth #sixth_left {
+	float: left;
+	font-size: 12px;
+}
+
+.login_section #sixth #sixth_right {
+	float: right;
+}
+
+.login_section #sixth #sixth_right button {
+	background: #000000;
+	color: #ffffff;
+	border: none;
+	width: 100px;
+	height: 25px;
+}
+
+.login_section #seventh {
+	margin-top: 25px;
+	width: 360px;
+}
+
+.login_section #seventh div {
+	font-size: 12px;
+	height: 30px;
+}
+
+.login_section #seventh div:nth-child(1) {
+	text-align: center;
+	font-size: 14px;
+	font-weight: 900;
+}
+
+.login_section #seventh div:nth-child(6) {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.login_section #seventh .aa {
+	width: 180px;
+	height: 18px;
+	border: 1px solid #ffffff;
+}
+
+.login_section #seventh .bb {
+	width: 84px;
+	height: 18px;
+	border: 1px solid #ffffff;
+}
+
+.login_section #seventh .cc {
+	width: 70px;
+	height: 25px;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+}
+
+.login_section #seventh #a1 {
+	margin-left: 74px;
+}
+
+.login_section #seventh #a2 {	
+	margin-left: 74px;
+}
+
+.login_section #seventh #a3 {
+	margin-left: 10px;
+	
 }
 
 footer {
-	width: 900px;
+	width: 100%;
 	height: 250px;
 	background: red;
 }

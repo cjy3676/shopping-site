@@ -9,10 +9,10 @@
 <body>
 	<!-- 메인페이지 왼쪽부분 -->
 	<nav>
-	<div id="logo">Ruler Dragon</div>
+	<div id="logo">R u l e r  D r a g o n</div>
 	
 		<ul>
-			<li class="main" onclick="view(0,this,200)">SUITS
+			<li class="main" onclick="view(0,this,185)">SUITS
 			<ul class="menu">
 				<li>싱글 수트</li>
 				<li>스트라이프 수트</li>
@@ -24,7 +24,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(1,this,200)">TOP
+			<li class="main" onclick="view(1,this,120)">TOP
 			<ul class="menu">
 				<li>긴팔 티셔츠</li>
 				<li>반팔 티셔츠</li>
@@ -33,7 +33,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(2,this,200)">SHIRTS
+			<li class="main" onclick="view(2,this,140)">SHIRTS
 			<ul class="menu">
 				<li>스트라이프 셔츠</li>
 				<li>오픈카라 셔츠</li>
@@ -43,7 +43,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(3,this,200)">PANTS
+			<li class="main" onclick="view(3,this,165)">PANTS
 			<ul class="menu">
 				<li>슬랙스</li>
 				<li>면바지</li>
@@ -54,7 +54,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(4,this,200)">OUTER
+			<li class="main" onclick="view(4,this,140)">OUTER
 			<ul class="menu">
 				<li>코트</li>
 				<li>재켓/블레이저</li>
@@ -64,7 +64,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(5,this,200)">SHOES
+			<li class="main" onclick="view(5,this,140)">SHOES
 			<ul class="menu">
 				<li>드레스 슈즈</li>
 				<li>스니커즈</li>

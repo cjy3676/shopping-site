@@ -9,3 +9,16 @@ function view(n,pp,hei) {
 	document.getElementsByClassName("menu")[n].style.display = "block";
 	pp.style.height = hei+"px";
 }
+
+$(function() {
+	$("#logo").mouseover(function() {
+		$(this).animate({
+			color : "#bbbbbb"
+		}, 200);
+	});
+	$("#logo").mouseout(function() {
+		$(this).animate({
+			color : "black"
+		}, 200);
+	});
+});
