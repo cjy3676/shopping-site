@@ -24,6 +24,7 @@
 		
 		<div id="second"><!-- 아이디, 비밀번호 부분 -->
 		<div id="outer">
+		<form method="post" action="login_ok.jsp">
 		<div id="outer_left">
 		<div id="userid">
 		<label for="uid">아이디</label>
@@ -37,6 +38,7 @@
 		<div id="outer_right">
 		<input id="login" type="submit" value="Login">
 		</div>
+		</form>
 		</div>
 		</div>
 		
@@ -60,21 +62,21 @@
 		▶ 회원가입을 하시면 다양하고 특별한<br>
 		&nbsp;&nbsp;&nbsp;혜택이 준비되어 있습니다.
 		</div>
-		<div id="sixth_left">
-		<button>회원가입 》</button>
+		<div id="sixth_right">
+		<button id="mem_join"><a href="member.jsp">회원가입  &nbsp 》</a></button>
 		</div>
 		</div>
 		
 		<div id="seventh">
 		<div>비회원 주문조회</div>
 		<div>비회원의 경우, 주문시의 주문번호로 주문조회가 가능합니다.</div>
-		<div>》 주문자명<input type="text" name="name" class="aa" id="a1"></div>
-		<div>》 주문번호<input type="text" name="bun1" class="bb" id="a2">-
-		<input type="text" name="bun2" class="bb"> 
+		<div>》 주문자명<input type="text" name="name" class="un_mem1" id="un_mem1"></div>
+		<div>》 주문번호<input type="text" name="num1" class="un_mem2" id="un_mem2">-
+		<input type="text" name="num2" class="un_mem2"> 
 		</div>
 		
-		<div>》비회원주문  비밀번호<input type="password" name="pwd" class="aa" id="a3"></div>
-		<div><button class="cc">조회 》</button></div>
+		<div>》비회원주문  비밀번호<input type="password" name="pwd" class="un_mem1" id="un_mem3"></div>
+		<div><button class="un_mem3">조회 》</button></div>
 		</div>
 		</div>
 		</section>

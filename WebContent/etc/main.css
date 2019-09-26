@@ -6,6 +6,12 @@ html, body {
 	width: 100%;
 }
 
+a {
+	text-decoration: none;
+	color: #000000;
+	cursor: pointer;
+}
+
 nav {
 	width: 300px;
 	height: 900px;
@@ -14,7 +20,7 @@ nav {
 }
 
 nav #logo {
-	font-size: 27px;
+	font-size: 25px;
 	margin-left: 35px;
 	margin-top: 35px;
 }
@@ -122,7 +128,7 @@ section {
 .login_section #login {
 	width: 100px;
 	height: 70px;
-	background: black;
+	background: #000000;
 	border: 1px solid #000000;
 	color: #ffffff;
 	font-weight: 900;
@@ -188,12 +194,18 @@ section {
 	float: right;
 }
 
-.login_section #sixth #sixth_right button {
-	background: #000000;
-	color: #ffffff;
-	border: none;
-	width: 100px;
+.login_section #sixth #sixth_right #mem_join {
+	width: 90px;
 	height: 25px;
+	font-weight: 900;
+	color: #ffffff;
+	background: #000000;
+	border: 1px solid #000000;
+}
+
+.login_section #sixth #sixth_right #mem_join a{
+	font-weight: 600;
+	color: #ffffff;
 }
 
 .login_section #seventh {
@@ -217,41 +229,151 @@ section {
 	margin-top: 20px;
 }
 
-.login_section #seventh .aa {
+.login_section #seventh .un_mem1 {
 	width: 180px;
 	height: 18px;
-	border: 1px solid #ffffff;
+	border: 1px solid #d9d9d9;
 }
 
-.login_section #seventh .bb {
+.login_section #seventh .un_mem2 {
 	width: 84px;
 	height: 18px;
-	border: 1px solid #ffffff;
+	border: 1px solid #d9d9d9;
 }
 
-.login_section #seventh .cc {
+.login_section #seventh .un_mem3 {
 	width: 70px;
 	height: 25px;
 	background: #ffffff;
-	border: 1px solid #cccccc;
+	border: 1px solid #d9d9d9;
 	border-radius: 3px;
 }
 
-.login_section #seventh #a1 {
+.login_section #seventh #un_mem1 {
 	margin-left: 74px;
 }
 
-.login_section #seventh #a2 {	
+.login_section #seventh #un_mem2 {	
 	margin-left: 74px;
 }
 
-.login_section #seventh #a3 {
-	margin-left: 10px;
+.login_section #seventh #un_mem3 {
+	margin-left: 13px;
 	
 }
 
+.member_section {
+	width: 900px;
+	margin-top: 100px;
+}
+
+.member_section td {
+	height: 30px;
+	border: 1px solid #dfdfdf;
+	font-size: 12px;
+}
+
+.member_section .td1 {
+	width: 150px;
+	padding-left: 10px;
+	background: #fbfafa; 
+}
+
+.member_section .in1 {
+	border: 1px solid #dfdfdf;
+	width: 280px;
+	height: 20px;
+}
+
+.member_section .in2 {
+	border: 1px solid #dfdfdf;
+	width: 100px;
+	height: 20px;
+}
+
+.member_section .in3 {
+	border: 1px solid #dfdfdf;
+	width: 200px;
+	height: 20px;
+}
+
+.member_section select {
+	border: 1px solid #dfdfdf;
+	height: 23px;
+}
+
+.member_section #in_div {
+	width: 800px;
+	height: 25px;
+	margin-top: 50px;
+	margin-bottm: 10px;
+}
+
+.member_section #tb_left {
+	float: left;
+	font-weight: 900;
+}
+
+.member_section #tb_right {
+	float: right;
+	font-size: 12px;
+}
+
+.member_section .zip {
+	border: 1px solid #dfdfdf;
+	background: #fbfafa;
+	height: 24px;
+	margin-left: 5px;
+}
+
+.member_section .birth1 {
+	width: 70px;
+	height: 20px;
+	border: 1px solid #dfdfdf;
+}
+
+.member_section .birth2 {
+	width: 35px;
+	height: 20px;
+	border: 1px solid #dfdfdf;
+}
+
+.member_section textarea {
+	margin-left: 20px;
+	padding-left: 10px;
+	padding-top: 20px;
+}
+
+.member_section .top {
+	font-weight: 900;
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+.member_section #mem_submit {
+	width: 140px;
+	height: 40px;
+	margin-top: 20px;
+	font-weight: 900;
+	color: #ffffff;
+	background: #000000;
+	border: 1px solid #000000;
+}
+
 footer {
-	width: 100%;
-	height: 250px;
-	background: red;
+	width: 900px;
+	height: 350px;
+	margin-top: 50px;
+	font-size: 12px
+}
+
+footer li {
+	list-style-type: none;
+	margin-left: 10px;
+	height: 25px;
+	float: left;
+}
+
+footer .footer_main {
+	clear: both;
 }

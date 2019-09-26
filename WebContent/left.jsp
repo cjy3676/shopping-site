@@ -9,7 +9,7 @@
 <body>
 	<!-- 메인페이지 왼쪽부분 -->
 	<nav>
-	<div id="logo">R u l e r  D r a g o n</div>
+	<div id="logo"><a href="../main/index.jsp">R u l e r  D r a g o n</a></div>
 	
 		<ul>
 			<li class="main" onclick="view(0,this,185)">SUITS
@@ -96,6 +96,32 @@
 		<ul>
 			<li>BEST</li>
 			<li>NEW</li>
+		</ul>
+		
+		<ul>
+		<li></li>
+		</ul>
+		
+		<ul>
+		<li>
+		<%
+		if(session.getAttribute("userid")==null) {
+		%>
+		<a href="../login/login.jsp">LOGIN</a>
+		<%
+		}
+		else {	
+		%>
+		<a href="../login/logout.jsp">LOGOUT</a>
+		<%
+		}
+		%>
+		</li>
+		<li>
+		<a href="../login/login.jsp">MY ACCOUNT</a>
+		</li>
+		<li>CART</li>
+		<li>Q & A / REVIEW</li>
 		</ul>
 	</nav>
 </body>
