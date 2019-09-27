@@ -1,3 +1,17 @@
+function check_method(n) { // 정리
+	if(n == 0) {
+		document.getElementById("chk_method").innerText = "》 이메일로 찾기";
+		document.getElementById("email").style.display = "inline-block";
+		document.getElementById("hphone").style.display = "none";
+		document.getElementById("hphone").value = "";
+	} else {
+		document.getElementById("chk_method").innerText = "》 휴대폰 번호로 찾기";
+		document.getElementById("email").style.display = "inline-block";
+		document.getElementById("hphone").style.display = "none";
+		document.getElementById("hphone").value = "";
+	}
+}
+
 function main_check() {
 	// 4개의 체크중에 하나라도 체크가 해제되면 => 메인체크를 해제
 	var ch = 0;
