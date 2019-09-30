@@ -143,7 +143,7 @@ function code_gen() {
 	var cu = document.cjy.made_cou.value;
 	var cm = document.cjy.made_com.value;
 	
-	document.getElementById("code").innerText = "p"+l+m+cu+cm;
+	document.cjy.pcode.value = "p"+l+m+cu+cm;
 }
 </script>
 </head>
@@ -153,7 +153,8 @@ function code_gen() {
             소분류: 001, 002
             제조국: 01, 02
             제조사: 01, 02    -->
-<form name="cjy">
+<form name="cjy" method="post" action="pro_input_ok.jsp" enctype="multipart/form-data">
+<input type="hidden" name="pcode">
 대분류<select name="large" onchange="chg_middle(this.value)">
 		<option value="01">suits</option>
 		<option value="02">top</option>
@@ -189,7 +190,45 @@ function code_gen() {
        <option value="04">제일모직</option>
        <option value="05">두타</option>
 	</select><p>
-상품코드: <span id="code"></span>	
-</form>		
+	상품이름 <input type="text" name="pname"><p>
+	상품가격 <input type="text" name="price"><p>
+	세탁정보 <select name="pwash">
+			<option value="0">물세탁</option>
+			<option value="1">손세탁</option>
+			<option value="2">드라이크리닝</option>
+			<option value="3">울세탁</option>
+		  </select> 
+	생산일자 <select name="yy">
+			<option value="2019">2019</option>
+			<option value="2018">2018</option>
+			<option value="2017">2017</option>
+		  </select> 
+		  
+		  <select name="mm">
+			<%
+				for (int i = 1; i <= 12; i++) {
+			%>
+				<option value=<%=i%>><%=i%>월
+			<%
+				}
+			%>
+				
+		  </select> 
+			
+		  <select name="dd">
+			<%
+				for (int i = 1; i <= 31; i++) {
+			%>
+				<option value=<%=i%>><%=i%>일
+			<%
+				}
+			%>
+		  </select><p>
+	상뭄입고수량 <input type="text" name="pinput"><p>
+	상품그림(list)<input type="file" name="plist"><p>
+	상품그림(메인)<input type="file" name="pmain"><p>
+	상품상세정보<input type="file" name="pdt_img"><p>
+	<input type="submit" value="상품저장">
+	</form>		
 </body>
 </html>

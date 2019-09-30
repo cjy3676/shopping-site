@@ -51,7 +51,7 @@ nav .menu li { /* 하위메뉴 */
 }
 
 section {
-	width: 100%;
+	width: 1100px;
 	/* background: blue; */
 }
 
@@ -263,7 +263,7 @@ section {
 }
 
 .member_section {
-	width: 900px;
+	width: 1100px;
 	margin-top: 100px;
 }
 
@@ -360,8 +360,76 @@ section {
 	border: 1px solid #000000;
 }
 
+.id_search_section {
+	width: 1100px;
+	margin-top:100px;	
+	margin:auto;     
+}
+
+.id_search_section #idsearch {
+	width: 1100px;
+	margin-top:50px;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+	font-weight: 500;
+}
+
+.id_search_section #idsearch_sub {
+	width: 1100px;
+	text-align:left;
+	font-size: 12px;
+	line-height: 14px;
+	color: #353535;
+}
+
+.id_search_section #search_main {
+	width: 1100px;
+	height: 300px;
+	border: 1px solid #d7d5d5;
+    margin-top:100px;
+}
+
+.id_search_section #search_main #sub {
+    width: 300px;
+    height: 40px;
+    font-size: 12px;
+}
+.id_search_section #search_main #sub:first-child {
+	margin-top:30px;
+	font-size:18px;
+	font-weight:900;
+}
+.id_search_section #search_main #sub #aa {
+	float:left;
+	margin-top:4px;
+}
+.id_search_section #search_main #sub #bb {
+	float:right;
+	width: 200px;
+	height: 30px;
+}
+
+.id_search_section #search_main #sub .mem_type {
+	width: 177px;
+	height: 24px;
+	border:1px solid #cccccc;
+}
+
+.id_search_section #search_main #sub #idsearch_submit {
+	width:100px;
+	height:40px;
+	background:#0a0a0a;
+	border:none;
+	color:white;
+	border-radius:4px;
+	font-size:16px;
+	margin-top: 7px;
+	text-align: center;
+}
+
 footer {
-	width: 900px;
+	width: 1100px;
 	height: 350px;
 	margin-top: 50px;
 	font-size: 12px

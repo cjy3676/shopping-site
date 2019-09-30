@@ -4,7 +4,7 @@
 <%@ page import="shopping_site.jdbc.Connect"%>
 <%
     // DB 연결
-    request.setCharacterEncoding("utf-8");
+    request.setCharacterEncoding("UTF-8");
     Connection conn = Connect.connection2();
     Statement stmt = conn.createStatement();
     

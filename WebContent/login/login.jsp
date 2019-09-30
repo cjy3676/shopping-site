@@ -48,7 +48,7 @@
 		</div>
 		
 		<div id="fourth">
-		ⓧ 아이디 찾기 ⓧ 비밀번호 찾기
+		<a href="id_search.jsp">ⓧ 아이디 찾기</a> ⓧ 비밀번호 찾기
 		</div>
 		
 		<div id="fifth">

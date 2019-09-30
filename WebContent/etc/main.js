@@ -2,13 +2,13 @@ function check_method(n) { // 정리
 	if(n == 0) {
 		document.getElementById("chk_method").innerText = "》 이메일로 찾기";
 		document.getElementById("email").style.display = "inline-block";
-		document.getElementById("hphone").style.display = "none";
-		document.getElementById("hphone").value = "";
+		document.getElementById("hphone_text").style.display = "none";
+		document.getElementById("hphone_text").value = "";
 	} else {
 		document.getElementById("chk_method").innerText = "》 휴대폰 번호로 찾기";
-		document.getElementById("email").style.display = "inline-block";
-		document.getElementById("hphone").style.display = "none";
-		document.getElementById("hphone").value = "";
+		document.getElementById("hphone_text").style.display = "inline-block";
+		document.getElementById("email").style.display = "none";
+		document.getElementById("email").value = "";
 	}
 }
 
