@@ -1,3 +1,61 @@
+function page_wish() {
+	location = "wish_view.jsp";
+}
+
+function not_wish() {
+	document.getElementById("wish_layer").style.display = "none";
+}
+
+var wish = new XMLHttpRequest(); 
+function move_wish(pid) {
+	url = "wish_ok.jsp?pid="+pid;
+	wish.open("get",url);
+	wish.send();
+}
+wish.onreadystatechange = function() {
+	if(wish.readyState == 4) {
+		if(wish.responseText.trim() == "ok") {
+			document.getElementById("wish_layer").style.display = "block";
+		}
+	}
+}
+
+function page_cart() {
+	location = "cart_view.jsp";
+}
+
+function not_cart() {
+	document.getElementById("cart_layer").style.display = "none";
+}
+
+var cart = new XMLHttpRequest(); 
+function move_cart(pid) {
+	var size = document.getElementById("size").value;
+	var pnum = document.getElementById("pnum").value;
+	url = "cart_ok.jsp?pid="+pid+"&psize="+psize+"&pnum="+pnum;
+	cart.open("get",url);
+	cart.send();
+}
+cart.onreadystatechange = function() {
+	if(cart.readyState == 4) {
+		if(cart.responseText.trim() == "ok") {
+			document.getElementById("cart_layer").style.display = "block";
+		}
+	}
+}
+
+$(function() {
+	$("#pnum").spinner(
+	{
+		min:1,
+		max:100
+	});
+});
+
+function move_content(id) { // 상품상세 페이지 이동
+	location="pro_content.jsp?id="+id;
+}
+
 function chg_middle(pp) {
 	switch(pp) {
 	case "01":

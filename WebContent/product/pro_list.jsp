@@ -41,7 +41,7 @@
 
                         for(int i=1; i<=list.size(); i++) {
 					%>
-					<td>
+					<td style="cursor:pointer" onclick="move_content(<%=list.get(i-1).getId()%>)">
 					<p align="center">
 					<img width="125" height="250" src="img/<%=list.get(i-1).getPlist()%>">
 					</p>

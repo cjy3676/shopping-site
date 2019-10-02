@@ -428,6 +428,53 @@ section {
 	text-align: center;
 }
 
+.list_section {
+	font-size: 12px;
+}
+
+.content_section {
+	width: 1100px;
+	height: 1000px;
+}
+
+.content_section .first {
+	width: 1100px;
+	height: 550px;
+	margin-top: 70px;
+}
+
+.content_section .first #left {
+	float: left;
+	width: 500px;
+}
+
+.content_section .first #right {
+	float: right;
+	width: 400px;
+	font-size: 12px;
+	margin-left: 0px;
+}
+
+.content_section .second {
+	clear: both;
+}
+
+#cart_layer {
+	position: absolute;
+	left: 700px;
+	top: 400px;
+	background: white;
+	display: none;
+} 
+
+#wish_layer {
+	position: absolute;
+	left: 700px;
+	top: 400px;
+	background: white;
+	display: none;
+}
+
 footer {
 	width: 1100px;
 	height: 350px;
