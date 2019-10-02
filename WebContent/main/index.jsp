@@ -8,7 +8,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> 
 <link rel="stylesheet" type="text/css" href="../etc/main.css?after">
-<script src="../etc/main.js"></script>
+<script src="../etc/main.js?abc"></script>
 </head>
 <body>
 	<!-- 메인페이지 -->

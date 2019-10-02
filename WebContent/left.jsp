@@ -12,7 +12,7 @@
 	<div id="logo"><a href="../main/index.jsp">R u l e r  D r a g o n</a></div>
 	
 		<ul>
-			<li class="main" onclick="view(0,this,185)">SUITS
+			<li class="main" onclick="view(0,this,185)"><a href="../product/pro_list.jsp?pcode=p01">SUITS</a>
 			<ul class="menu">
 				<li>싱글 수트</li>
 				<li>스트라이프 수트</li>
@@ -24,7 +24,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(1,this,120)">TOP
+			<li class="main" onclick="view(1,this,120)"><a href="../product/pro_list.jsp?pcode=p02">TOP</a>
 			<ul class="menu">
 				<li>긴팔 티셔츠</li>
 				<li>반팔 티셔츠</li>
@@ -33,7 +33,7 @@
 			</ul>
 			</li>
 			
-			<li class="main" onclick="view(2,this,140)">SHIRTS
+			<li class="main" onclick="view(2,this,140)"><a href="../product/pro_list.jsp?pcode=p03">SHIRTS</a>
 			<ul class="menu">
 				<li>스트라이프 셔츠</li>
 				<li>오픈카라 셔츠</li>
