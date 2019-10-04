@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="shopping_site.jdbc.Connect"%>
+<%@ page import="java.text.DecimalFormat" %> 
 <%  
     Connection conn = Connect.connection2();
     Statement stmt = conn.createStatement();
@@ -11,6 +12,8 @@
     String sql = "select * from product where id="+id;
     ResultSet rs = stmt.executeQuery(sql);
     rs.next();
+    
+    DecimalFormat df=new DecimalFormat("#,###");
 %>    
 <!DOCTYPE html>
 <html>
@@ -18,16 +21,32 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../etc/main.css?after">
-<script src="../etc/main.js?qwe22"></script>
+<script src="../etc/main.js?123"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
   <!-- 파일을 서버로 다운받은후 사용하는 방법 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+$(function() {
+	$("#pnum").spinner( {
+		min:1,
+		max:100
+	});
+	$("#pnum").on("spinstop",function(){
+		var pnum = parseInt(document.getElementById(pnum).value);
+		var imsi_price = <%=rs.getInt("price")%>*pnum;
+		imsi_price = comma(imsi_price);
+		document.getElementById("price").innerText = imsi_price;
+	});
+});
+</script>
 </head>
 <body>
 	<jsp:include page="../left.jsp" flush="false" />
 	<div id="right">
 		<section class="content_section">
+		<form method="post" action="pro_order.jsp">
+		<input type="hidden" name="pcode" value=<%=rs.getString("pcode")%>>
 		<!-- pro_cotent.jsp 시작 -->
 		<div class="first"> <!-- 메인이미지, 상품명, 가격등등 -->
 		<div id="left"><img src="img/<%=rs.getString("pmain")%>"></div>
@@ -49,11 +68,12 @@
 		</div>
 		<div id="right6">
 		<input type="text" name="pnum" id="pnum" value="1" style="width:30px">
+		<span id="price"><%=rs.getString("price")%></span>원
 		</div>
 		<div id="right7">
 		<button id="buy">BUY NOW</button>
-		<button id="cart" onclick="move_cart(<%=id%>)">ADD TO CART</button>
-		<button id="wish">ADD TO WISH</button>
+		<input type="button" id="cart" onclick="move_cart(<%=id%>)" value="ADD TO CART">
+		<input type="button" id="wish" onclick="move_wish(<%=id%>)" value="ADD TO WISH">
 		</div>
 		<div id="right8">네이버</div>
 		</div>
@@ -118,6 +138,7 @@
 		<div class="sixth">리뷰</div>
 		<div class="seventh">Q/A</div>
 		<!-- pro_content.jsp 끝 -->
+		</form>
 		</section>
 	<jsp:include page="../footer.jsp" flush="false" />
 	</div>

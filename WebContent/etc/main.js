@@ -1,3 +1,49 @@
+function jumun_init() {
+	var p = "<%=pho[0]%>"; // 02
+	var hp = "<%=hpho[0]%>"; // 010
+	var p1 = document.getElementById("p1");
+	var hp1 = document.getElementById("hp1");
+
+	for (i = 0; i < p1.length; i++) { // alert(p1[i].value+" "+p)
+		if (p1[i].value == p) {
+			p1.selectedIndex = i;
+			bp1.selectedIndex = i;
+		}
+	}
+
+	for (i = 0; i < hp1.length; i++) { // alert(hp1[i].value+" "+hp)
+		if (hp1[i].value == hp) {
+			hp1.selectedIndex = i;
+			bhp1.selectedIndex = i;
+		}
+	}
+}
+
+function order_addr(chk) {
+	if(chk == 1) { // 주문자정보와 동일
+		
+	}
+	else { // 비우기
+		document.cjy.bname.value = "";
+		document.cjy.bzip.value = "";
+		document.cjy.baddr1.value = "";
+		document.cjy.baddr2.value = "";
+		document.cjy.bp1.selectedIndex = 0;
+		document.cjy.bp2.value = "";
+		document.cjy.bp3.value = "";
+		document.cjy.bhp1.selectedIndex = 0;
+		document.cjy.bhp1.value = "";
+		document.cjy.bhp1.value = "";
+	}
+}
+
+function comma(price) {
+	price = price + "";
+	price = price.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+	
+	return price;
+}
+
 function page_wish() {
 	location = "wish_view.jsp";
 }
@@ -43,14 +89,6 @@ cart.onreadystatechange = function() {
 		}
 	}
 }
-
-$(function() {
-	$("#pnum").spinner(
-	{
-		min:1,
-		max:100
-	});
-});
 
 function move_content(id) { // 상품상세 페이지 이동
 	location="pro_content.jsp?id="+id;
