@@ -20,6 +20,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../etc/main.css?after">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../etc/main.js?qwe22"></script>
 </head>
 <body onload="order_init()">
@@ -97,7 +98,7 @@
 	    <td rowspan="3">주소 *</td>
 	    <td>
 	    <input type="text" name="zip" value="<%=rs.getString("zip")%>">
-	    <input type="button" value="우편번호">
+	    <input type="button" value="우편번호" onclick="oaddr_search(0)">
 	    </td>
 	    </tr>
 	    <tr>
@@ -171,7 +172,7 @@
 	    <td>
 	    <input type="radio" name="order_addr" onclick="order_addr(1)" checked>주문자정보와 동일
 	    <input type="radio" name="order_addr" onclick="order_addr(2)">새로운 배송지
-	    <input type="button" value="주소록보기">	    
+	    <input type="button" value="주소록보기" onclick="order_open()">	    
 	    </td>
 	    </tr>
 	    <tr>
@@ -182,7 +183,7 @@
 	    <td rowspan="3">주소 *</td>
 	    <td>
 	    <input type="text" name="ozip" value="<%=rs.getString("zip")%>">
-	    <input type="button" value="우편번호">
+	    <input type="button" value="우편번호" onclick="oaddr_search(1)">
 	    </td>
 	    </tr>
 	    <tr>

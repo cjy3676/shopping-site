@@ -1,4 +1,131 @@
-function jumun_init() {
+function addrlist_update(p,hp) {
+	   var phone= p;
+	   var hphone= hp;
+	   var pho=p.split("-");
+	   var hpho=hp.split("-");
+	   document.cjy.p1.value=pho[0];
+	   document.cjy.p2.value=pho[1];
+	   document.cjy.p3.value=pho[2];
+	   document.cjy.hp1.value=hpho[0];
+	   document.cjy.hp2.value=hpho[1];
+	   document.cjy.hp3.value=hpho[2];
+}
+
+function opener_input(n,z,a1,a2,p,hp) { // 이름, 우편번호, 주소1, 주소2, 전화번호, 휴대폰
+	opener.document.cjy.oname.value = n;
+	opener.document.cjy.ozip.value = z;
+	opener.document.cjy.oaddr1.value = a1;
+	opener.document.cjy.oaddr2.value = a2;
+	var pp = p.split("-");	
+	var hh = hp.split("-");	
+	opener.document.cjy.op1.value = pp[0];
+	opener.document.cjy.op2.value = pp[1];
+	opener.document.cjy.op3.value = pp[2];
+	opener.document.cjy.ohp1.value = hh[0];
+	opener.document.cjy.ohp2.value = hh[1];
+	opener.document.cjy.ohp3.value = hh[2];
+	close();
+}
+
+function chk_state2() { // 하위에 있는 체크박스가 하나라도 해제되어있다면 메인체크박스가 해제
+	// 하위에 있는 체크박스의 해제 여부를 판단
+	var n = document.getElementsByClassName("addr_sub").length;
+	var chk = 0;
+	for(i=0; i<n; i++)
+		if(document.getElementsByClassName("addr_sub")[i].checked == false)
+			chk = 1;
+	
+	if(chk == 0)
+		document.getElementById("addr_sub").checked = true;
+	else
+		document.getElementById("addr_sub").checked = false;
+}
+
+function chk_state(pp) {
+	var n = document.getElementsByClassName(addr_sub).length;
+	if(pp.checked) {// input type = checkbox의 체크여부(true, false)
+		// 밑에 있는 체크박스를 전부 체크시킨다.
+		for(i=0; i<n; i++)
+			document.getElementsByClassName("addr_sub")[i].checked = true;
+	}
+	else {
+		// 밑에 있는 체크박스를 전부 체크해제
+		for(i=0; i<n; i++)
+			document.getElementsByClassName("addr_sub")[i].checked = false;
+	}
+}
+
+function addr_del(tt) {
+	if(tt == 0)
+		document.getElementById("addr_del").style.display = "none";
+	
+}
+
+function addrlist_search() { // 우편번호 버튼 클릭시 호출 함수명(배송지 등록, addr_list)
+  new daum.Postcode({
+      oncomplete: function(data) {
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+          } 
+          else { // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+          }
+          
+              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              document.cjy.zip.value = data.zonecode; // 우편번호
+              document.cjy.addr1.value = addr;  // 주소
+              // 커서를 상세주소 필드로 이동한다.
+              document.cjy.addr2.value = "";
+              document.cjy.addr2.focus();
+      }
+  }).open();
+}
+
+function addr_chg() {
+	document.getElementById("first").style.display = "none";
+	document.getElementById("second").style.display = "block";
+}
+
+function addr_chg2() {
+	document.getElementById("first").style.display = "block";
+	document.getElementById("second").style.display = "none";
+}
+
+function order_open() {
+	window.open("addr_list.jsp","","width=800,height=900");
+}
+
+function oaddr_search(n)  // 우편번호 버튼 클릭시 호출 함수명(주문시, pro_order.jsp)
+{
+  new daum.Postcode({
+      oncomplete: function(data) {
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+          } 
+          else { // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+          }
+          
+          if(n == 0) {
+              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              document.cjy.zip.value = data.zonecode; // 우편번호
+              document.cjy.addr1.value = addr;  // 주소
+              // 커서를 상세주소 필드로 이동한다.
+              document.cjy.addr2.value = "";
+              document.cjy.addr2.focus();
+          }
+          else {
+              document.cjy.ozip.value = data.zonecode; // 우편번호
+              document.cjy.oaddr1.value = addr;  // 주소
+              // 커서를 상세주소 필드로 이동한다.
+              document.cjy.oaddr2.value = "";
+              document.cjy.oaddr2.focus();
+          }
+      }
+  }).open();
+}
+
+function order_init() {
 	var p = "<%=pho[0]%>"; // 02
 	var hp = "<%=hpho[0]%>"; // 010
 	var p1 = document.getElementById("p1");
@@ -318,7 +445,7 @@ function member_in(pp)
 	  pp.email.value=pp.email1.value+"@"+pp.email2.value;
 }
 
-function addr_search()  // 우편번호 버튼 클릭시 호출 함수명
+function addr_search()  // 우편번호 버튼 클릭시 호출 함수명(회원가입시, member.jsp)
 {
   new daum.Postcode({
       oncomplete: function(data) {
