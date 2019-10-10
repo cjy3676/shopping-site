@@ -23,7 +23,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../etc/main.js?qwe22"></script>
 </head>
-<body onload="order_init()">
+<body onload="order_init(),payment()">
 <jsp:include page="../left.jsp" flush="false" />
 	<div id="right">
 		<section class="order_section">
@@ -57,7 +57,7 @@
 					<td><%=rs.getString("pname")%> [옵션 : <%=psize%>]</td>
 					<td><%=rs.getString("price")%></td>
 					<td><%=pnum%></td>
-					<td><%=rs.getInt("point")%></td>
+					<td><%=(rs.getInt("point")*rs.getInt("price"))/100%></td>
 					<td>기본배송</td>
 					<td>[무료]</td>
 					<td><%=rs.getInt("price") * Integer.parseInt(pnum)%></td>
@@ -224,8 +224,51 @@
 	    </tr>   
 	    </table>
         </div>
-		<div id="seventh">결제예정금액</div>
-		<div id="eighth">결제수단</div>
+		<div id="seventh">
+		<div>결제예정금액</div>
+		<table width="800" border="1">
+		<tr>
+		<td>총 주문 금액 <input type="button" value="내역보기"></td>
+		<td>총 할인 + 부가결제 금액</td>
+		<td>총 결제 예정 금액</td>
+		</tr>
+		<tr>
+		<td><span id="tot"></span></td>
+		<td><span id="dis_cost"></span></td>
+		<td><span id="tot_cost"></span></td>
+		</tr>
+		</table>
+		<table width="800" border="1">
+		<tr>
+		<td>총 할인 금액</td>
+		<td><span id="tot_dis"></span></td>
+		</tr>
+		<tr>
+		<td>총 부가결제 금액</td>
+		<td><span id="extra_cost"></span></td>
+		</tr>
+		</table>
+		</div>
+		<div id="eighth">
+		<div>결제수단<input type="checkbox">결제수단과 입력정보를 다음에도 사용
+		<table width="800" border="1">
+		<tr>
+		<td width="600">
+		<div id="top">
+		<input type="radio" onclick="pay_view(0)" checked>무통장입금
+		<input type="radio" onclick="pay_view(1)">카드결제
+		<input type="radio" onclick="pay_view(2)">에스크로(실시간 계좌이체)
+		<input type="radio" onclick="pay_view(3)">휴대폰결제
+		</div>
+		<div id="bottom">
+		<div></div>
+		</div>
+		<td>
+		<div><span id="pay_"></span></div>
+		</td>
+		</table>
+		</div>		
+		</div>
 		<div id="ninth">무이자할부이용안내</div>
 		<div id="tenth"></div>
 		</form>

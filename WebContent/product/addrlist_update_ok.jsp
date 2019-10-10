@@ -22,7 +22,7 @@
     String sql;
     if(request.getParameter("main_addr")==null)
     	main_addr="0";
-    else  // 기존에 있는 주소의 gibon field의 값을 0으로 변경
+    else  // 기존에 있는 주소의 main_addr field의 값을 0으로 변경
     {
     	sql="update order_addr set main_addr=0 where userid='"+userid+"'";
     	stmt.executeUpdate(sql);

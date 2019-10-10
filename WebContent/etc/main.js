@@ -1,3 +1,26 @@
+function pay_view() { // 결제수단에 따른 하위내용 변화
+	// 기존에 보였던 내용을 숨기기
+	var pay = document.getElementsByClassName("pay_method");
+	for(i=0; i<4; i++)
+		pay[i].style.display = "none"; // 모두 숨기기
+	// 선택된 결제수단의 내용을 보이기
+	pay[n].style.display = "block";
+}
+
+/*function payment() { // 정리필요
+	// 결제예정금액 출력부분 
+	// 총 주문금액
+	var tot = <%=pnum%> * <%=rs.getInt("price")%>;
+	// 총 할인금액, 부가결제금액
+	var tot_dis, extra_cost = 0;
+	// 총 할인, 부가결제금액
+	var dis_cost = tot_dis+extra_cost;
+	// 총 결제금액
+	var tot_cost = 
+	// 총 할인금액
+	// 부가결제금액
+}*/
+
 function addrlist_update(p,hp) {
 	   var phone= p;
 	   var hphone= hp;

@@ -25,6 +25,7 @@
 	<div>배송 주소록 관리</div>
 	<div>배송주소록 유의사항</div>
 	<div id="first">
+		<form method="post" action="addr_delete.jsp">
 		<table>
 			<tr>
 				<td><input type="checkbox" id="addrlist_main" onclick="chk_state(this)"></td>
@@ -44,12 +45,12 @@
 			    while(rs.next()) {
 			%>
 			<tr> <!-- DB에 있는 배송지를 읽어와서 출력하는 부분 -->
-				<td><input type="checkbox" class="addrlist_sub" onclick="chk_state2()"></td>
+				<td><input type="checkbox" name="addre_del" class="addrlist_sub" onclick="chk_state2()"></td>
 				<td>-</td>
 				<td>
 				<%
 				  if(rs.getInt("main_addr") == 1)
-					  out.print("<span style='border:1px solid black; background: lightblue'>기본</span>");
+					  out.print("<span style='border:1px solid black; background: lightblue'>기본</span><p>");
 				%>
 				<%=rs.getString("name")%>
 				</td>
@@ -68,9 +69,10 @@
 			%>
 		</table>
 		<div>
-		    <input type="button" value="선택 주소록 삭제" id="addr_del" onload="addr_del(<%=chk%>)">
+		    <input type="submit" value="선택 주소록 삭제" id="addr_del" onload="addr_del(<%=chk%>)">
 		    <input type="button" value="배송지등록" onclick="addr_chg()">
 		</div>
+		</form>
 	</div>
 	<div id="second">
 	<form method="post" action="addrlist_save.jsp" name="cjy">
