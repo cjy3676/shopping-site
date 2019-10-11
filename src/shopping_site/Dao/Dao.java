@@ -85,7 +85,7 @@ public class Dao {
 	}
 	
 	public void updateok(Connection conn, Board_Dto dto) throws SQLException {
-		String sql = "update board set name=?, title=?, content=?, where id=?";
+		String sql = "update board set name=?, title=?, content=? where id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, dto.getName());
 		pstmt.setString(2, dto.getTitle());
