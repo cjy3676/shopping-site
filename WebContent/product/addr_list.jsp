@@ -59,7 +59,7 @@
 				<td><%=rs.getString("hphone")%></td>
 				<td>(<%=rs.getString("zip")%>)<%=rs.getString("addr1")%></td>
 				<td>
-                   <input type="button" value="적용" onclick="opener_input('<%=rs.getString("name")%>','<%=rs.getString("zip")%>','<%=rs.getString("addr1")%>','<%=rs.getString("addr2")%>','<%=rs.getString("phone")%>','<%=rs.getString("hphone")%>')">
+                   <input type="button" value="적용" onclick="opener_input('<%=rs.getString("id")%>','<%=rs.getString("name")%>','<%=rs.getString("zip")%>','<%=rs.getString("addr1")%>','<%=rs.getString("addr2")%>','<%=rs.getString("phone")%>','<%=rs.getString("hphone")%>')">
                    <input type="button" value="수정" onclick="location='addrlist_update.jsp?id=<%=rs.getString("id")%>'">
                 </td>
 			</tr>

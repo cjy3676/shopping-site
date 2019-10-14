@@ -24,256 +24,379 @@
 <script src="../etc/main.js?qwe22"></script>
 </head>
 <body onload="order_init(),payment()">
-<jsp:include page="../left.jsp" flush="false" />
+	<jsp:include page="../left.jsp" flush="false" />
 	<div id="right">
-		<section class="order_section">
+	<section class="order_section">
 		<form method="post" action="pro_order_ok.jsp" name="cjy">
- <div id=first align=center> 주문서 작성</div>
- <div id=second> <img src="img2/img_order_step2.gif" width=800> </div> 
- <div id=third> 혜택정보 </div>
-		<div id="fourth">주문내역</div>
+	<div id="first" align="center">주문서 작성</div>
+	<div id="second">
+		<img src="img2/img_order_step2.gif" width="800">
+	</div>
+	<div id="third">
+	     <div id="left">혜택정보</div>
+		 <div id="right">
+		 <div id="ff1" align="left" style="border-bottom: 1px solid #eeeeee">
+			<%=session.getAttribute("name")%>님은, [일반회원]이십니다.
+		 </div>
+		 <div id="ff2" align="left">가용point:500p 쿠폰:0개</div>
+		 </div>
+	 </div>
+			
+		<input type="hidden" name="pcode" value="<%=pcode%>"> 
+		<input type="hidden" name="psize" value="<%=psize%>"> 
+		<input type="hidden" name="pnum" value="<%=pnum%>"> 
+		<input type="hidden" name="dis_cost" value="<%=0%>"> 
+		<input type="hidden" name="extra_cost" value="<%=0%>"> 
+		<input type="hidden" name="point" value="<%=%>"> 
+		<input type="hidden" name="mem_point" value="<%=0%>"> 
+		<input type="hidden" name="cou_point" value="<%=0%>">
+
+	 <div id="fourth">
+		 <table width="800" border="0">
+			<tr>
+				<td colspan="9">! 상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</td>
+			</tr>
+			<tr>
+				<td colspan="6">국내배송상품 주문내역</td>
+				<td colspan="3"><input type="button" value="이전페이지"></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>이미지</td>
+				<td>상품정보</td>
+				<td>판매가</td>
+				<td>수량</td>
+				<td>point</td>
+				<td>배송구분</td>
+				<td>배송비</td>
+				<td>합계</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td><img src="img/<%=rs.getString("plist")%>" width="50"></td>
+				<td><%=rs.getString("pname")%> [옵션 : <%=psize%>]</td>
+				<td><%=rs.getString("price")%></td>
+				<td><%=pnum%></td>
+				<td><%=(rs.getInt("point") * rs.getInt("price")) / 100%></td>
+				<td>기본배송</td>
+				<td>[무료]</td>
+				<td><%=rs.getInt("price") * Integer.parseInt(pnum)%></td>
+				<!-- 합계금액 -->
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3">[기본배송]</td>
+				<td colspan="5">상품구매금액 
+				<span id="tot_price1"><%=rs.getInt("price") * Integer.parseInt(pnum)%></span>
+				+배송비 0[무료]=합계 : <span id="tot_price2"><%=rs.getInt("price") * Integer.parseInt(pnum)%></span>
+			</tr>
+			<tr>
+				<td colspan="9">! 상품의 옵션및 수량 변경은 상품상세 또는 장바구니에서 가능합니다</td>
+			</tr>
+			<tr>
+				<td colspan="5">
+				선택상품을 <input type="button" value="삭제하기">
+				</td>
+				<td colspan="4"><input type="button" value="이전페이지"></td>
+			</tr>
+			</table>
+	 </div>
+				<%
+					sql = "select * from member where userid='" + session.getAttribute("userid") + "'";
+					rs = stmt.executeQuery(sql);
+					rs.next();
+				%>
+	 <div id="fifth">
+			<table width="800" border="1">
+			<tr>
+				<td>주문정보</td>
+				<td>*필수입력사항</td>
+			</tr>
+			<tr>
+				<td>주문하시는 분 *</td>
+				<td>
+				<input type="text" name="name" value="<%=rs.getString("name")%>">
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="3">주소 *</td>
+				<td>
+				<input type="text" name="zip" value="<%=rs.getString("zip")%>"> 
+				<input type="button" value="우편번호" onclick="oaddr_search(0)"></td>
+			</tr>
+			<tr>
+				<td>
+				<input type="text" name="addr1" value="<%=rs.getString("addr1")%>">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type="text" name="addr2" value="<%=rs.getString("addr2")%>">
+				</td>
+			</tr>
+						<%
+							String phone = rs.getString("phone");
+							String[] pho = phone.split("-");
+						%>
+			<tr>
+				<td>일반전화 *</td>
+				<td>
+				<select name="p1" id="p1">
+					<option value="02">02</option>
+					<option value="031">031</option>
+					<option value="032">032</option>
+					<option value="033">033</option>
+				</select> 
+				<input type="text" name="p1" value="<%=pho[1]%>">- 
+				<input type="text" name="p2" value="<%=pho[2]%>"></td>
+			</tr>
+						<%
+							String hphone = rs.getString("hphone");
+							String[] hpho = hphone.split("-");
+						%>
+			<tr>
+				<td>휴대전화</td>
+				<td>
+				<select name="hp1" id="hp1">
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="016">016</option>
+					<option value="017">017</option>
+				</select> 
+				<input type="text" name="hp2" value="<%=hpho[1]%>">- 
+				<input type="text" name="hp3" value="<%=hpho[2]%>"></td>
+			</tr>
+						<%
+							String email = rs.getString("email");
+							String[] ema = email.split("@");
+						%>
+			<tr>
+				<td>이메일 *</td>
+				<td>
+				<input type="text" name="email1" class="in3" value="<%=ema[0]%>">@ 
+				<input type="text" name="email2" class="in3" value="<%=ema[1]%>"> 
+				<select name="email_server" onchange="email_chg(this)">
+					<option value="">-이메일 선택-</option>
+					<option value="naver.com">naver.com</option>
+					<option value="daum.net">daum.net</option>
+					<option value="google.com">google.com</option>
+					<option value="">직접입력</option>
+				</select>
+			    </td>
+			</tr>
+			</table>
+			</div>
+
+	<div id="sixth">
+			<input type="hidden" name="oid">
+			<table width="800" border="1">
+			<tr>
+				<td>배송정보</td>
+				<td>*필수입력사항</td>
+			</tr>
+			<tr>
+				<td>배송지 선택</td>
+				<td>
+				<input type="radio" name="order_addr" onclick="order_addr(1)" checked>주문자정보와 동일 
+				<input type="radio" name="order_addr" onclick="order_addr(2)">새로운 배송지 
+				<input type="button" value="주소록보기" onclick="order_open()">
+				</td>
+			</tr>
+			<tr>
+				<td>받으시는 분 *</td>
+				<td>
+				<input type="text" name="oname" value="<%=rs.getString("name")%>">
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="3">주소 *</td>
+				<td>
+				<input type="text" name="ozip" value="<%=rs.getString("zip")%>"> 
+				<input type="button" value="우편번호" onclick="oaddr_search(1)">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type="text" name="oaddr1" value="<%=rs.getString("addr1")%>">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type="text" name="oaddr2" value="<%=rs.getString("addr2")%>">
+				</td>
+			</tr>
+			<tr>
+				<td>일반전화 *</td>
+				<td>
+				<select name="op1" id="op1">
+					<option value="02">02</option>
+					<option value="031">031</option>
+					<option value="032">032</option>
+					<option value="033">033</option>
+				</select> 
+				<input type="text" name="op1" value="<%=pho[1]%>">- 
+				<input type="text" name="op2" value="<%=pho[1]%>">
+				</td>
+			</tr>
+			<tr>
+				<td>휴대전화</td>
+				<td>
+				<select name="ohp1" id="ohp1">
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="016">016</option>
+					<option value="017">017</option>
+				</select> 
+				<input type="text" name="ohp2" value="<%=hpho[1]%>">- 
+				<input type="text" name="ohp3" value="<%=hpho[2]%>">
+				</td>
+			</tr>
+			<tr>
+				<td>배송메세지</td>
+				<td>
+				<textarea rows="3" cols="50" name="omsg"></textarea>
+				</td>
+			</tr>
+			</table>
+	</div>
+
+	<div id="seventh">
+			<div>결제예정금액</div>
 			<table width="800" border="1">
 				<tr>
-					<td colspan="9">! 상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</td>
+					<td>
+					총 주문 금액 <input type="button" value="내역보기">
+					</td>
+					<td>총 할인 + 부가결제 금액</td>
+					<td>총 결제 예정 금액</td>
 				</tr>
 				<tr>
-					<td colspan="6">국내배송상품 주문내역</td>
-					<td colspan="3"><input type="button" value="이전페이지"></td>
+					<td><span id="tot"></span></td>
+					<td><span id="dis_cost"></span></td>
+					<td><span id="tot_cost"></span></td>
+				</tr>
+				</table>
+				<table width="800" border="1">
+				<tr>
+					<td>총 할인 금액</td>
+					<td><span id="tot_dis"></span></td>
 				</tr>
 				<tr>
-					<td><input type="checkbox"></td>
-					<td>이미지</td>
-					<td>상품정보</td>
-					<td>판매가</td>
-					<td>수량</td>
-					<td>point</td>
-					<td>배송구분</td>
-					<td>배송비</td>
-					<td>합계</td>
+					<td>총 부가결제 금액</td>
+					<td><span id="extra_cost"></span></td>
+				</tr>
+				</table>
+	 </div>
+	 
+	 <div id="eighth">
+			<div> 결제수단
+			<input type="checkbox" name="pay_way" value="1">결제수단과 입력정보를 다음에도 사용
+				<table width="800" border="1">
+				<tr>
+					<td width="600">
+				<div id="top">
+					<input type="radio" value="0" name="pay_method" onclick="pay_view(0)" checked> 무통장입금
+					<input type="radio" value="1" name="pay_method" onclick="pay_view(1)">카드결제 
+					<input type="radio" value="2" name="pay_method" onclick="pay_view(2)">에스크로(실시간 계좌이체) 
+					<input type="radio" value="3" name="pay_method" onclick="pay_view(3)">휴대폰결제
+				</div>
+				
+	<div id="bottom">
+			<div class="pay_method"><!-- 무통장입금 -->
+				<table width="500" border="1">
+				<tr>
+					<td>입금자명</td>
+					<td><input type="text" name=ipgum></td><!-- 정리 -->
 				</tr>
 				<tr>
-					<td><input type="checkbox"></td>
-					<td><img src="img/<%=rs.getString("plist")%>" width="50"></td>
-					<td><%=rs.getString("pname")%> [옵션 : <%=psize%>]</td>
-					<td><%=rs.getString("price")%></td>
-					<td><%=pnum%></td>
-					<td><%=(rs.getInt("point")*rs.getInt("price"))/100%></td>
-					<td>기본배송</td>
-					<td>[무료]</td>
-					<td><%=rs.getInt("price") * Integer.parseInt(pnum)%></td>
-					<!-- 합계금액 -->
+					<td>입금은행</td>
+					<td>
+					<select name=ipbank><!-- 정리 -->
+						<option value="0">선택해주세요</option>
+						<option value="1">농협123-45-67890</option>
+						<option value="2">신한123-45-123456</option>
+					</select>
+					<br>
+					<input type="button" value="은행사이트 바로가기">
+					</td>
+				</tr>
+				</table>
+					<div>! 최소결제 가능금액은 결제금액에서 배송비를 제외한 금액입니다</div>
+			</div>
+										
+			<div class="pay_method"><!-- 카드결제 -->
+			! 최소결제 가능금액은 결제금액에서 배송비를 제외한 금액입니다 <p>
+			! 소액결제의 경우 PG사 정책에 따라 결제금액 제한이 있을수 있습니다.
+			</div>
+										
+			<div class="pay_method"><!-- 에스크로 -->
+				<table width="500" border="1">
+				<tr>
+					<td>예금주명</td>
+					<td><input type="text" name=ipgum></td><!-- 정리 -->
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td colspan="3">[기본배송]</td>
-					<td colspan="5">
-					상품구매금액 <span id="tot_price1"><%=rs.getInt("price") * Integer.parseInt(pnum)%></span>
-				    +배송비 0[무료]=합계 : <span id="tot_price2"><%=rs.getInt("price") * Integer.parseInt(pnum)%></span>
+					<td><input type="checkbox">에스크로(구매안전)서비스를 적용합니다.
+				</tr>
+				</table>
+			<div>! 소액결제의 경우 PG사 정책에 따라 결제금액 제한이 있을수 있습니다.</div>
+			</div>
+			<div class="pay_method"><!-- 휴대폰결제 -->
+			! 소액결제의 경우 PG사 정책에 따라 결제금액 제한이 있을수 있습니다.
+			</div>
+			</div>
+				  </td>
+				  <td>
+			<!-- 결제수단의 오른쪽 부분 -->
+			<div>
+				<span id=pay_sudan></span> 최종결제금액<!-- 정리 -->
+			</div>
+			<div id=pay_hap></div><!-- 정리 -->
+			<div>
+			<input type="submit" value="결제하기">
+			</div>
+			<div>
+				<table>
+				<tr>
+					<td>총 적립예정금액</td>
+					<td><span id=chong_juk></span>P</td><!-- 정리 -->
 				</tr>
 				<tr>
-					<td colspan="9">! 상품의 옵션및 수량 변경은 상품상세 또는 장바구니에서 가능합니다</td>
+					<td>상품별 point</td>
+					<td><span id=sang_juk></span>P</td><!-- 정리 -->
 				</tr>
 				<tr>
-					<td colspan="5">선택상품을 <input type="button" value="삭제하기">
+					<td>회원 point</td>
+					<td><span id=mem_juk> </span>P</td><!-- 정리 -->
+				</tr>
+				<tr>
+					<td>쿠폰 point</td>
+					<td><span id=cou_juk> </span>P</td><!-- 정리 -->
+				</tr>
+				</table>
+			</div>
 					</td>
-					<td colspan="4"><input type="button" value="이전페이지"></td>
 				</tr>
-			</table>
-<%
-    sql="select * from member where userid='"+session.getAttribute("userid")+"'";
-    rs=stmt.executeQuery(sql);
-    rs.next();
-%>			
-	    <div id="fifth">
-	    <table width="800" border="1">
-	    <tr>
-	    <td>주문정보</td>
-	    <td>*필수입력사항</td>
-	    </tr>
-	    <tr>
-	    <td>주문하시는 분 *</td>
-	    <td><input type="text" name="name" value="<%=rs.getString("name")%>"></td>
-	    </tr>
-	    <tr>
-	    <td rowspan="3">주소 *</td>
-	    <td>
-	    <input type="text" name="zip" value="<%=rs.getString("zip")%>">
-	    <input type="button" value="우편번호" onclick="oaddr_search(0)">
-	    </td>
-	    </tr>
-	    <tr>
-	    <td><input type="text" name="addr1" value="<%=rs.getString("addr1")%>"></td>
-	    </tr>
-	    <tr>
-	    <td><input type="text" name="addr2" value="<%=rs.getString("addr2")%>"></td>
-	    </tr>
-<%
-  String phone = rs.getString("phone");
-  String[] pho = phone.split("-");
-%>	    
-	    <tr>
-	    <td>일반전화 *</td>
-	    <td>
-	    <select name="p1" id="p1">
-	    <option value="02">02</option>
-	    <option value="031">031</option>
-	    <option value="032">032</option>
-	    <option value="033">033</option>
-	    </select>
-	    <input type="text" name="p1" value="<%=pho[1]%>">-
-	    <input type="text" name="p2" value="<%=pho[1]%>">
-	    </td>
-	    </tr>
-<%
-  String hphone = rs.getString("hphone");
-  String[] hpho = hphone.split("-");
-%>	    
-	    <tr>
-	    <td>휴대전화</td>
-	    <td>
-	    <select name="hp1" id="hp1">
-	    <option value="010">010</option>
-	    <option value="011">011</option>
-	    <option value="016">016</option>
-	    <option value="017">017</option>
-	    </select>
-	    <input type="text" name="hp2" value="<%=hpho[1]%>">-
-	    <input type="text" name="hp3" value="<%=hpho[2]%>">
-	    </td>
-	    </tr>
-<%
-  String email = rs.getString("email");
-  String[] ema = email.split("@");
-%>	    
-	    <tr>
-	    <td>이메일 *</td>
-	    <td>
-	    <input type="text" name="email1" class="in3" value="<%=ema[0]%>">@
-	    <input type="text" name="email2" class="in3" value="<%=ema[1]%>">
-	    <select name="email_server" onchange="email_chg(this)">
-	    <option value="">-이메일 선택-</option>
-	    <option value="naver.com">naver.com</option>
-	    <option value="daum.net">daum.net</option>
-	    <option value="google.com">google.com</option>
-	    <option value="">직접입력</option>
-	    </select>
-	    </td>
-	    </tr>
-	    </table>
-	    </div>
-		<div id="sixth">
-        <table width="800" border="1">
-	    <tr>
-	    <td>배송정보</td>
-	    <td>*필수입력사항</td>
-	    </tr>
-	    <tr>
-	    <td>배송지 선택</td>
-	    <td>
-	    <input type="radio" name="order_addr" onclick="order_addr(1)" checked>주문자정보와 동일
-	    <input type="radio" name="order_addr" onclick="order_addr(2)">새로운 배송지
-	    <input type="button" value="주소록보기" onclick="order_open()">	    
-	    </td>
-	    </tr>
-	    <tr>
-	    <td>받으시는 분 *</td>
-	    <td><input type="text" name="oname" value="<%=rs.getString("name")%>"></td>
-	    </tr>
-	    <tr>
-	    <td rowspan="3">주소 *</td>
-	    <td>
-	    <input type="text" name="ozip" value="<%=rs.getString("zip")%>">
-	    <input type="button" value="우편번호" onclick="oaddr_search(1)">
-	    </td>
-	    </tr>
-	    <tr>
-	    <td><input type="text" name="oaddr1" value="<%=rs.getString("addr1")%>"></td>
-	    </tr>
-	    <tr>
-	    <td><input type="text" name="oaddr2" value="<%=rs.getString("addr2")%>"></td>
-	    </tr>  
-	    <tr>
-	    <td>일반전화 *</td>
-	    <td>
-	    <select name="op1" id="op1">
-	    <option value="02">02</option>
-	    <option value="031">031</option>
-	    <option value="032">032</option>
-	    <option value="033">033</option>
-	    </select>
-	    <input type="text" name="op1" value="<%=pho[1]%>">-
-	    <input type="text" name="op2" value="<%=pho[1]%>">
-	    </td>
-	    </tr>  
-	    <tr>
-	    <td>휴대전화</td>
-	    <td>
-	    <select name="ohp1" id="ohp1">
-	    <option value="010">010</option>
-	    <option value="011">011</option>
-	    <option value="016">016</option>
-	    <option value="017">017</option>
-	    </select>
-	    <input type="text" name="ohp2" value="<%=hpho[1]%>">-
-	    <input type="text" name="ohp3" value="<%=hpho[2]%>">
-	    </td>
-	    </tr>
-	    <tr>
-	    <td>배송메세지</td>
-	    <td><textarea rows="3" cols="50" name="omsg"></textarea></td>
-	    </tr>   
-	    </table>
-        </div>
-		<div id="seventh">
-		<div>결제예정금액</div>
-		<table width="800" border="1">
-		<tr>
-		<td>총 주문 금액 <input type="button" value="내역보기"></td>
-		<td>총 할인 + 부가결제 금액</td>
-		<td>총 결제 예정 금액</td>
-		</tr>
-		<tr>
-		<td><span id="tot"></span></td>
-		<td><span id="dis_cost"></span></td>
-		<td><span id="tot_cost"></span></td>
-		</tr>
-		</table>
-		<table width="800" border="1">
-		<tr>
-		<td>총 할인 금액</td>
-		<td><span id="tot_dis"></span></td>
-		</tr>
-		<tr>
-		<td>총 부가결제 금액</td>
-		<td><span id="extra_cost"></span></td>
-		</tr>
-		</table>
-		</div>
-		<div id="eighth">
-		<div>결제수단<input type="checkbox">결제수단과 입력정보를 다음에도 사용
-		<table width="800" border="1">
-		<tr>
-		<td width="600">
-		<div id="top">
-		<input type="radio" onclick="pay_view(0)" checked>무통장입금
-		<input type="radio" onclick="pay_view(1)">카드결제
-		<input type="radio" onclick="pay_view(2)">에스크로(실시간 계좌이체)
-		<input type="radio" onclick="pay_view(3)">휴대폰결제
-		</div>
-		<div id="bottom">
-		<div></div>
-		</div>
-		<td>
-		<div><span id="pay_"></span></div>
-		</td>
-		</table>
-		</div>		
-		</div>
-		<div id="ninth">무이자할부이용안내</div>
-		<div id="tenth"></div>
-		</form>
+				</table>
+			</div>
+			
+	<div id="ninth">
+			<div>무이자할부이용안내</div>
+			<div>
+			- 무이자할부가 적용되지 않은 상품과 무이자할부가 가능한 상품을 동시에 구매할 경우 전체 주문 상품 금액에 대해 무이자할부가 적용되지 않습니다. 
+			- 무이자할부를 원하시는 경우 장바구니에서 무이자할부 상품만 선택하여 주문하여 주시기 바랍니다.
+            </div>
+	</div>
+	 
+    <div id="tenth">
+			<div>이용 안내</div>
+			<div>
+			<jsp:include page="an.txt" /></div>
+			</div>
+			</form>
 		</section>
 		<jsp:include page="../footer.jsp" flush="false" />
-		</div>
+	</div>
 </body>
 </html>

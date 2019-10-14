@@ -34,7 +34,8 @@ function addrlist_update(p,hp) {
 	   document.cjy.hp3.value=hpho[2];
 }
 
-function opener_input(n,z,a1,a2,p,hp) { // 이름, 우편번호, 주소1, 주소2, 전화번호, 휴대폰
+function opener_input(oid,n,z,a1,a2,p,hp) { // 이름, 우편번호, 주소1, 주소2, 전화번호, 휴대폰
+	opener.document.cjy.oid.value = oid;
 	opener.document.cjy.oname.value = n;
 	opener.document.cjy.ozip.value = z;
 	opener.document.cjy.oaddr1.value = a1;
