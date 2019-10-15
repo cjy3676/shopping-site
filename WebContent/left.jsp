@@ -118,7 +118,18 @@
 		%>
 		</li>
 		<li>
+		<%
+		if(session.getAttribute("userid") == null) {
+		%>
 		<a href="../login/login.jsp">MY ACCOUNT</a>
+		<%
+		}
+		else {
+		%>
+		<a href="../myshop/myinfo.jsp">MY ACCOUNT</a>
+		<%
+		}
+		%>
 		</li>
 		<li>CART</li>
 		<li>Q & A / REVIEW</li>

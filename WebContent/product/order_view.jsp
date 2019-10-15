@@ -24,6 +24,7 @@
 <jsp:include page="../left.jsp" flush="false" />
 	<div id="right">
 		<section class="orderview_section">
+	
 	<div id="fourth">
 	<div>결제정보</div>
 	<table width="800">
@@ -47,6 +48,7 @@
 	</tr>
 	</table>
 	</div>
+	
 	<div id="fifth">
 	<div>주문 상품 정보</div>
 	<table width="800">
@@ -79,6 +81,44 @@
 	</td>
 	</tr>
 	</table>
+	</div>
+	<%
+	  sql = "select * from order_deli, order_addr where order_deli.id="+id+" and order_addr.id = order_deli.oid";
+	  rs = stmt.executeQuery(sql);
+	  rs.next();
+	%>
+	<div id="sixth">
+	<div>배송지 정보</div>
+	<table width="800">
+	<tr>
+	<td>받으시는 분</td>
+	<td><%=rs.getString("oname")%></td>
+	</tr>
+	<tr>
+	<td>우편번호</td>
+	<td><%=rs.getString("zip")%></td>
+	</tr>
+	<tr>
+	<td>주소</td>
+	<td><%=rs.getString("addr1")%><%=rs.getString("addr2")%></td>
+	</tr>
+	<tr>
+	<td>일반전화</td>
+	<td><%=rs.getString("phone")%></td>
+	</tr>
+	<tr>
+	<td>휴대전화</td>
+	<td><%=rs.getString("hphone")%></td>
+	</tr>
+	<tr>
+	<td>배송메세지</td>
+	<td><%=rs.getString("deli_mag")%></td>
+	</tr>
+	</table>
+	<div>
+	<input type="button" value="쇼핑계속하기">
+	<input type="button" value="주문확인하기">
+	</div>
 	</div>
 	</section>
 		<jsp:include page="../footer.jsp" flush="false" />

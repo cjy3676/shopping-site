@@ -475,6 +475,18 @@ section {
 	display: none;
 }
 
+.myinfo_section {
+	width: 1100px;
+}
+
+.myinfo_section #second li {
+	display: inline-block;
+}
+
+.myinfo_section #third li {
+	display: inline-block;
+}
+
 footer {
 	width: 1100px;
 	height: 350px;

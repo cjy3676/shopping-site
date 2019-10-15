@@ -22,6 +22,34 @@
 <link rel="stylesheet" type="text/css" href="../etc/main.css?after">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../etc/main.js?qwe22"></script>
+<script>
+function payment()
+{  // 결제예정금액 출력부분 
+
+	 var tot=<%=pnum%>*<%=rs.getInt("price")%>;// 총주문금액
+	 var tot_dis=0;// 총할인금액
+	 var extra_cost=0;// 부가결제금액
+	 var dis_cost=tot_dis+extra_cost;// 총할인, 부가결제금액
+	 var tot_cost=tot-tot_dis+extra_cost;// 총결제금액
+	 document.getElementById("tot").innerText=tot;
+	 document.getElementById("tot_dis").innerText=tot_dis;
+	 document.getElementById("tot_cost").innerText=tot_cost;
+	 document.getElementById("tot_dis").innerText=tot_dis;
+	 document.getElementById("extra_cost").innerText=extra_cost;
+	 //  결제수단영역에 값넘기기
+	 document.getElementById("tot_pay").innerText=tot;// 총결제금액
+	 // 적립될 point
+	 <%
+	    int point_save=Integer.parseInt(pnum)*rs.getInt("price");
+	    point_save=point_save/100;
+	 %>
+	 var point=<%=point_save%>;
+	 document.getElementById("tot_save").innerText=point;
+	 document.getElementById("pro_save").innerText=point;
+	 document.getElementById("mem_save").innerText="0";
+	 document.getElementById("cou_save").innerText="0";
+}
+</script>
 </head>
 <body onload="order_init(),payment()">
 	<jsp:include page="../left.jsp" flush="false" />
@@ -47,7 +75,7 @@
 		<input type="hidden" name="pnum" value="<%=pnum%>"> 
 		<input type="hidden" name="dis_cost" value="<%=0%>"> 
 		<input type="hidden" name="extra_cost" value="<%=0%>"> 
-		<input type="hidden" name="point" value="<%=%>"> 
+		<input type="hidden" name="point" value="<%=point_save%>"> 
 		<input type="hidden" name="mem_point" value="<%=0%>"> 
 		<input type="hidden" name="cou_point" value="<%=0%>">
 
@@ -254,7 +282,7 @@
 			<tr>
 				<td>배송메세지</td>
 				<td>
-				<textarea rows="3" cols="50" name="omsg"></textarea>
+				<textarea rows="3" cols="50" name="deli_mag"></textarea>
 				</td>
 			</tr>
 			</table>
@@ -271,19 +299,19 @@
 					<td>총 결제 예정 금액</td>
 				</tr>
 				<tr>
-					<td><span id="tot"></span></td>
-					<td><span id="dis_cost"></span></td>
-					<td><span id="tot_cost"></span></td>
+					<td><span id="tot"></span></td><!-- chong -->
+					<td><span id="dis_cost"></span></td><!-- halin -->
+					<td><span id="tot_cost"></span></td><!-- hap -->
 				</tr>
 				</table>
 				<table width="800" border="1">
 				<tr>
 					<td>총 할인 금액</td>
-					<td><span id="tot_dis"></span></td>
+					<td><span id="tot_dis"></span></td><!-- halin1 -->
 				</tr>
 				<tr>
 					<td>총 부가결제 금액</td>
-					<td><span id="extra_cost"></span></td>
+					<td><span id="extra_cost"></span></td><!-- buga -->
 				</tr>
 				</table>
 	 </div>
@@ -306,12 +334,12 @@
 				<table width="500" border="1">
 				<tr>
 					<td>입금자명</td>
-					<td><input type="text" name=ipgum></td><!-- 정리 -->
+					<td><input type="text" name="deposit_name"></td><!-- ipgum -->
 				</tr>
 				<tr>
 					<td>입금은행</td>
 					<td>
-					<select name=ipbank><!-- 정리 -->
+					<select name="deposit_bank"><!-- ipbank -->
 						<option value="0">선택해주세요</option>
 						<option value="1">농협123-45-67890</option>
 						<option value="2">신한123-45-123456</option>
@@ -333,7 +361,7 @@
 				<table width="500" border="1">
 				<tr>
 					<td>예금주명</td>
-					<td><input type="text" name=ipgum></td><!-- 정리 -->
+					<td><input type="text" name="deposit_name"></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
@@ -350,9 +378,9 @@
 				  <td>
 			<!-- 결제수단의 오른쪽 부분 -->
 			<div>
-				<span id=pay_sudan></span> 최종결제금액<!-- 정리 -->
+				<span id="pay_way"></span> 최종결제금액
 			</div>
-			<div id=pay_hap></div><!-- 정리 -->
+			<div id="tot_pay"></div><!-- pay_hap -->
 			<div>
 			<input type="submit" value="결제하기">
 			</div>
@@ -360,19 +388,19 @@
 				<table>
 				<tr>
 					<td>총 적립예정금액</td>
-					<td><span id=chong_juk></span>P</td><!-- 정리 -->
+					<td><span id="tot_save"></span>P</td><!-- chong_juk -->
 				</tr>
 				<tr>
 					<td>상품별 point</td>
-					<td><span id=sang_juk></span>P</td><!-- 정리 -->
+					<td><span id="pro_save"></span>P</td><!-- sang_juk -->
 				</tr>
 				<tr>
 					<td>회원 point</td>
-					<td><span id=mem_juk> </span>P</td><!-- 정리 -->
+					<td><span id="mem_save"> </span>P</td><!-- mem_juk -->
 				</tr>
 				<tr>
 					<td>쿠폰 point</td>
-					<td><span id=cou_juk> </span>P</td><!-- 정리 -->
+					<td><span id="cou_save"> </span>P</td><!-- cou_juk -->
 				</tr>
 				</table>
 			</div>
@@ -392,7 +420,7 @@
     <div id="tenth">
 			<div>이용 안내</div>
 			<div>
-			<jsp:include page="an.txt" /></div>
+			<jsp:include page="operation_guide.txt" /></div>
 			</div>
 			</form>
 		</section>

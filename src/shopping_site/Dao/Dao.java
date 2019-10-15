@@ -3,6 +3,7 @@ package shopping_site.Dao;
 import java.sql.*;
 import java.util.ArrayList;
 import shopping_site.Dto.Board_Dto;
+import shopping_site.Dto.Dto;
 import shopping_site.jdbc.Connect;
 
 
@@ -103,6 +104,14 @@ public class Dao {
 		stmt.close();
 		conn.close();
 				
+	}
+	
+	public Dto update_exe(Connection conn, String userid) throws SQLException {
+		String sql = "select * from member where userid='"+userid+"'";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		Dto dto = new Dto(rs); // 생성자에 rs객체를 넘겨준다
+		return dto;
 	}
 }
 

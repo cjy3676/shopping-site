@@ -33,6 +33,7 @@
 	case "2": deli_step = "0"; break;
 	case "3": deli_step = "1";
 	}
+    String deli_msg = request.getParameter("deli_msg");
 	
 	// 배송주소록에 레코드가 없을때 (pro_order.jsp에서 oid값이 없을때)
 	String oid;
@@ -72,7 +73,7 @@
 	String sql = "insert into order_deli(pcode,psize,pnum,userid";
 	sql = sql + ",oid,dis_cost,extra_cost,point,mem_point,cou_point";
 	sql = sql + ",pay_way,pay_method,deposit_name,deposit_bank,writeday";
-	sql = sql + ",deli_step) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?)";
+	sql = sql + ",deli_step,deli_msg) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?,?)";
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, pcode);
 	pstmt.setString(2, psize);
@@ -89,6 +90,7 @@
 	pstmt.setString(13, deposit_name);
 	pstmt.setString(14, deposit_bank);
 	pstmt.setString(15, deli_step);
+	pstmt.setString(16, deli_msg);
 	pstmt.executeUpdate();
 	// order_deli에 저장
 	

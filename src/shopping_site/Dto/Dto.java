@@ -1,5 +1,8 @@
 package shopping_site.Dto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Dto {
 	// 데이터베이스의 테이블 구조랑 동일하게 정의
 	private int id;
@@ -152,5 +155,32 @@ public class Dto {
 				+ writeday + "]";
 	}
 	
+	public Dto() {
+		
+	}
+	
+	public Dto(ResultSet rs) throws SQLException {
+		rs.next();
+		this.id = rs.getInt("id");
+		this.mem_type = rs.getInt("mem_type");
+		this.userid = rs.getString("userid");
+		this.pwd = rs.getString("pwd");
+		this.pwd_qu = rs.getInt("pwd_qu");
+		this.pwd_an = rs.getString("pwd_an");
+		this.name = rs.getString("name");
+		this.zip = rs.getString("zip");
+		this.addr1 = rs.getString("addr1");
+		this.addr2 = rs.getString("addr2");
+		this.phone = rs.getString("phone");
+		this.hphone = rs.getString("hphone");
+		this.email = rs.getString("email");
+		this.gender = rs.getInt("id");
+		this.birth = rs.getString("id");
+		this.chk1 = rs.getInt("chk1");
+		this.chk2 = rs.getInt("chk2");
+		this.chk3 = rs.getInt("chk3");
+		this.chk4 = rs.getInt("chk4");
+		this.writeday = rs.getString("writeday");
+	}
 	
 }
