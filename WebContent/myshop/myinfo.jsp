@@ -96,7 +96,7 @@
 		<div id="fourth"><!-- 조회, 정보변경, 게시판등등 -->
 		<table width="800">
 		<tr>
-		<td>ORDER 주문내역조회</td>
+		<td onclick="location='mydelivery.jsp'">ORDER 주문내역조회</td>
 		<td onclick="location='../login/member_update.jsp'">PROFILE 회원정보</td>
 		</tr>
 		<tr>

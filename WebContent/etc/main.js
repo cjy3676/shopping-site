@@ -1,3 +1,11 @@
+function member_in(pp) {
+	  pp.phone.value=pp.p1.value+"-"+pp.p2.value+"-"+pp.p3.value;
+	  pp.hphone.value=pp.hp1.value+"-"+pp.hp2.value+"-"+pp.hp3.value;
+	  pp.birth.value=pp.yy.value+"-"+pp.mm.value+"-"+pp.dd.value;
+	  pp.email.value=pp.email1.value+"@"+pp.email2.value;
+
+}
+
 function pay_view() { // 결제수단에 따른 하위내용 변화
 	// 기존에 보였던 내용을 숨기기
 	var pay = document.getElementsByClassName("pay_method");

@@ -487,6 +487,20 @@ section {
 	display: inline-block;
 }
 
+.mydelivery_section {
+	width: 1100px;
+}
+
+.mydelivery_section #third ul {
+	display: inline-block;
+}
+
+.mydelivery_section #third ul li {
+	display: inline-block;
+	border: 1px solid #cccccc;
+	margin-left: -5px;
+}
+
 footer {
 	width: 1100px;
 	height: 350px;

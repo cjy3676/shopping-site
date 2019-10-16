@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="shopping_site.jdbc.Connect"%>
+<%@ page import="shopping_site.Util.Util"%>
 <%  
     Connection conn = Connect.connection2();
     Statement stmt = conn.createStatement();
@@ -175,8 +176,8 @@ function payment()
 					<option value="032">032</option>
 					<option value="033">033</option>
 				</select> 
-				<input type="text" name="p1" value="<%=pho[1]%>">- 
-				<input type="text" name="p2" value="<%=pho[2]%>"></td>
+				<input type="text" name="p2" value="<%=pho[1]%>">- 
+				<input type="text" name="p3" value="<%=pho[2]%>"></td>
 			</tr>
 						<%
 							String hphone = rs.getString("hphone");

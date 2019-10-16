@@ -63,6 +63,7 @@
 		<option value="3">가장 기억에 남는 선생님 성함은?</option>
 		<option value="4">타인은 모르는 자신만의 신체 비밀이 있다면?</option>
 		<option value="5">추억하고 싶은 날짜가 있다면?</option>
+		<option value="6"> 내가 좋아하는 캐릭터는?</option>
 		</select>
 		</td>
 		</tr>
@@ -98,8 +99,8 @@
 		<option value="032">032</option>
 		<option value="033">033</option>
 		</select>
-		<input type="text" name="p2" class="in2" maxlength="5">-
-		<input type="text" name="p3" class="in2" maxlength="5">
+		<input type="text" name="p2" class="in2" maxlength="4">-
+		<input type="text" name="p3" class="in2" maxlength="4">
 		</td>
 		</tr>
 		
@@ -112,8 +113,8 @@
 		<option value="016">016</option>
 		<option value="017">017</option>
 		</select>
-		<input type="text" name="hp2" class="in2">-
-		<input type="text" name="hp3" class="in2">
+		<input type="text" name="hp2" class="in2" maxlength="4">-
+		<input type="text" name="hp3" class="in2" maxlength="4">
 		</td>
 		</tr>
 		
