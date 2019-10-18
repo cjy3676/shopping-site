@@ -23,17 +23,50 @@
     	String e = request.getParameter("e");
     	extra = "and order_deli.writeday >= '"+s+"' and order_deli.writeday <= date_add('"+e+"',interval 1 day)";
     }	
+    
+    // 처음에 mydelivery.jsp를 읽을때는 deli_step값이 존재하지 않는다 => select에서 선택시에만 deli_step이 존재
+    String deli;		
+    if(request.getParameter("deli_step") == null)
+    	deli = "-1";
+    else
+    	deli = request.getParameter("deli_step");
+    
+    String extra2 = "";
+    switch(deli) {
+    case "-1": extra2 = ""; break;
+    case "0": extra2 = " and deli_step=0"; break;
+    case "1": extra2 = " and deli_step=1"; break;
+    case "2": extra2 = " and deli_step=2"; break;
+    case "3": extra2 = " and deli_step=3"; break;
+    case "4": extra2 = " and deli_step=4"; break;
+    case "5": extra2 = " and deli_step=5"; break;
+    case "6": extra2 = " and deli_step=6"; break;
+    case "7": extra2 = " and deli_step=7"; break;
+    }
+    
+    // 주문내역조회와 취소/반품/교환내역 클릭여부
+    String extra3 = "";
+    int deliv_ck; // 취소/반품/교환 체크
+    if(request.getParameter("deliv") == null) {
+    	extra3 = "";
+    	deliv_ck = 0;
+    }
+    else {
+    	extra3 = " and deli_step between 5 and 7";
+    	deliv_ck = 1;
+    }
+    
     Connection conn = Connect.connection2();
     String sql = "select order_deli.id, substring(order_deli.writeday,1,10) as writeday, product.plist, product.pname, psize";
     sql = sql + ", pnum, product.price, deli_step from order_deli, product where ";
     sql = sql + "order_deli.userid='"+session.getAttribute("userid")+"'";
-    sql = sql + " and product.pcode=order_deli.pcode"+extra;
+    sql = sql + " and product.pcode=order_deli.pcode"+extra+extra2+extra3;
     Statement stmt = conn.createStatement();
     ResultSet rs = stmt.executeQuery(sql);
 %>        
 <!DOCTYPE html>
 <html>
-<head>
+<head>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -55,6 +88,7 @@ function mydelivery(n) {
 	}
 	location = "mydelivery.jsp";
 }
+
 $(function() {
 	$("#start").datepicker({
 		dateFormat:"yy-mm-dd"
@@ -63,9 +97,36 @@ $(function() {
 		dateFormat:"yy-mm-dd"
 	});
 });
+
+function step_check(deli_step) {
+	location = "mydelivery.jsp?deli_step="+deli_step;
+}
+
+function bgcolor() {
+	<%
+	  if(day != "") {
+	%>
+	  document.getElementByClassName("ddd")[<%=day%>].style.background = "#cccccc";
+	<%
+	  }
+	%>
+	
+	// 배송단계에 따른 검색
+	<%
+	  if(request.getParameter("deli_step") != null) {
+	%>
+	  document.getElementById("sel").value=<%=request.getParameter("deli_step")%>
+	<%
+	  }
+	%>
+	
+	// 현재 주문내역조회인지, 취소/반품/교환내역인지 알수있게 반전
+	document.getElementsByClassName("sec")[0].style.background = "pink";
+	document.getElementsByClassName("sec")[0].style.color = "white";
+}
 </script>
 </head>
-<body>
+<body onload="bgcolor()">
 	<!-- 메인페이지 -->
 	<jsp:include page="../left.jsp" flush="false"/>
 
@@ -74,22 +135,30 @@ $(function() {
 		<div id="first">주문조회</div>
 		<div id="second">
 		<ul>
-		<li>주문내역조회</li>
-		<li>취소/반품/교환 내역</li>
+		<li class="sec" onclick="location='mydelivery.jsp'">주문내역조회</li>
+		<li class="sec" onclick="location='mydelivery.jsp?deliv=1'">취소/반품/교환 내역</li>
 		<li></li>
 		</ul>
 		</div>
 		
 		<div id="third">
-		<select>
-		<option>전체주문처리상태</option>
+		<select onchange="step_check(this.value)" id="sel">
+		<option value="-1">전체주문처리상태</option>
+		<option value="0">입금전</option>
+		<option value="1">결제완료</option>
+		<option value="2">배송준비</option>
+		<option value="3">배송중</option>
+		<option value="4">배송완료</option>
+		<option value="5">취소</option>
+		<option value="6">교환</option>
+		<option value="7">반품</option>
 		</select>
 		<ul>
-		<li onclick="mydelivery(0)">오늘</li>
-		<li onclick="mydelivery(1)">1주일</li>
-		<li onclick="mydelivery(2)">1개월</li>
-		<li onclick="mydelivery(3)">3개월</li>
-		<li onclick="mydelivery(4)">6개월</li>
+		<li onclick="mydelivery(0)" class="ddd">오늘</li>
+		<li onclick="mydelivery(1)" class="ddd">1주일</li>
+		<li onclick="mydelivery(2)" class="ddd">1개월</li>
+		<li onclick="mydelivery(3)" class="ddd">3개월</li>
+		<li onclick="mydelivery(4)" class="ddd">6개월</li>
 		</ul>
 		<input type="text" name="start"> ~
 		<input type="text" name="end">

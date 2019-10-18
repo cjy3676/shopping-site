@@ -491,6 +491,34 @@ section {
 	width: 1100px;
 }
 
+.mydelivery_section #second ul{
+	width: 800px;
+	padding-left: 0px;
+}
+
+.mydelivery #second li {
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 120px;
+	height: 40px;
+	border: 1px solid #cccccc;
+	margin-left: -1px;
+    bockground: #eeeeee;
+    border-bottom: 1px solid black;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.mydelivery_section #second ul li:nth-child(3) {
+	width: 470px;
+} 
+
+.mydelivery_section #third {
+	clear: both;
+}
+
 .mydelivery_section #third ul {
 	display: inline-block;
 }
