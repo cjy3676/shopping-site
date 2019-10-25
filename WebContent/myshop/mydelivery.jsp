@@ -3,24 +3,57 @@
 <%@ page import="java.sql.*"%>    
 <%@ page import="shopping_site.jdbc.Connect"%>
 <%@ page import="shopping_site.Util.Util"%>
+<%@ page import="java.time.LocalDate"%>
 <%
     String day = request.getParameter("day");
     String extra = "";
-    if(day == null) // 기본(3개월)
+    
+    // Util.datefx() 메소드에 전달할 3개의 값을 여기서 생성
+    int param1 = 0; // 년,월,일
+    int param2 = 0; // 이전, 이후
+    int param3 = 0; // 기간
+    String s = "";
+    String e = "";
+    if(day == null) { // 기본(3개월)
+    	day = "";
+        param1 = 2;
+        param2 = 1;
+        param3 = 3;
     	extra = "and order_deli.writeday > date_sub(curdate(),interval 3 month)";
-    else if(day.equals("0")) // 오늘
+    }	
+    else if(day.equals("0")) { // 오늘
+  	    param1 = 3;
+  	    param2 = 1;
+  	    param3 = 0;
     	extra = "and order_deli.writeday > curdate()";
-    else if(day.equals("1")) // 일주일
+    }	
+    else if(day.equals("1")) { // 일주일
+  	    param1 = 3;
+  	    param2 = 1;
+  	    param3 = 7;
     	extra = "and order_deli.writeday > date_sub(curdate(),interval 7 day)";
-    else if(day.equals("2")) // 1개월
+    }	
+    else if(day.equals("2")) { // 1개월
+  	    param1 = 2;
+  	    param2 = 1;
+  	    param3 = 1;
     	extra = "and order_deli.writeday > date_sub(curdate(),interval 1 month)";
-    else if(day.equals("3")) // 3개월
+    }	
+    else if(day.equals("3")) { // 3개월
+  	    param1 = 2;
+  	    param2 = 1;
+  	    param3 = 3;
     	extra = "and order_deli.writeday > date_sub(curdate(),interval 3 month)";
-    else if(day.equals("4")) // 6개월
+    }	
+    else if(day.equals("4")) { // 6개월
+  	    param1 = 2;
+  	    param2 = 1;
+  	    param3 = 6;
     	extra = "and order_deli.writeday > date_sub(curdate(),interval 6 month)";
+    }	
     else if(day.equals("5")) { // 기간
-    	String s = request.getParameter("s");
-    	String e = request.getParameter("e");
+    	s = request.getParameter("s");
+    	e = request.getParameter("e");
     	extra = "and order_deli.writeday >= '"+s+"' and order_deli.writeday <= date_add('"+e+"',interval 1 day)";
     }	
     
@@ -160,9 +193,56 @@ function bgcolor() {
 		<li onclick="mydelivery(3)" class="ddd">3개월</li>
 		<li onclick="mydelivery(4)" class="ddd">6개월</li>
 		</ul>
-		<input type="text" name="start"> ~
-		<input type="text" name="end">
-		<input type="button" onclick="mydelivery()" value="조회">
+		<%
+		  LocalDate today = LocalDate.now();
+		  String now_date = today.toString();
+		  
+		  if(day.equals("5")) { // 검색을 기간으로 할 경우
+		%>
+		<input type="text" name="start" id="start" value="<%=s%>"> ~
+		<input type="text" name="end" id="end" value="<%=e%>">
+		<input type="button" onclick="mydelivery(5)" value="조회">
+		<%
+		  }
+		  else {
+		%>
+		<input type="text" name="start" id="start" value="<%=Util.datefx(now_date, ymd, bf, interval)%>"> ~
+		<input type="text" name="end" id="end" value="<%=today%>">
+		<input type="button" onclick="mydelivery(5)" value="조회">
+		<%
+		  }
+		%>
+		   <script>
+     function myjumun(n) // myjumun.jsp에 검색할 날짜를 가지고 간다..
+     {   // ul태그내의 날짜 혹은 start,end값이 있는지 여부
+ 
+    	switch(n)
+    	{
+    	  case 0: location="myjumun.jsp?nal=0"; break;
+    	  case 1: location="myjumun.jsp?nal=1"; break;
+    	  case 2: location="myjumun.jsp?nal=2"; break;
+    	  case 3: location="myjumun.jsp?nal=3"; break;
+    	  case 4: location="myjumun.jsp?nal=4"; break;
+    	  case 5: 
+    		  s=document.getElementById("start").value;
+    		  e=document.getElementById("end").value;
+    		  location="myjumun.jsp?nal=5&s="+s+"&e="+e;
+    		                       // nal=5&s=2019-10-16&e=2019-10-17
+    	}
+     }
+     
+     $(function()
+     {
+    	$("#start").datepicker(
+        {
+           dateFormat:"yy-mm-dd" 	
+        });
+    	$("#end").datepicker(
+ 	    {
+    	   dateFormat:"yy-mm-dd" 	
+    	});
+     });
+   </script>
 		</div>
 		
 		<div id="fourth">
@@ -215,7 +295,7 @@ function bgcolor() {
 		<td><%=deli_step%></td>
 		<td>-</td>
 		</tr>
-		<%
+		<% 
 		}
 		%>
 		</table>
@@ -225,3 +305,6 @@ function bgcolor() {
 	</div>
 </body>
 </html>
+<%
+  conn.close();
+%>  

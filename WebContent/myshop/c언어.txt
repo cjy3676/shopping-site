@@ -1,0 +1,7 @@
+변수 자료형 : int , double, float, char
+c언어에서는 String이 없다 => 배열, 포인트 대신
+
+값입력 => scanf(), printf()
+
+scanf("자료형식",변수의주소);
+printf("출력할 내용 %d",kor)

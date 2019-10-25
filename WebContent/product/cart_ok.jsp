@@ -3,6 +3,7 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="shopping_site.jdbc.Connect"%>
 <%  
+    //cart_ok.jsp => cart 테이블에 pid, psize, pnum 저장하고 out.print()에 ok
     Connection conn = Connect.connection2();
     Statement stmt = conn.createStatement();
     
@@ -18,5 +19,13 @@
     
     stmt.close();
     conn.close();
-    out.print("ok");
+    
+    // 1. pro_content.jsp에서 ajax로 호출
+    // 2. wish_list.jsp에서 form으로 요청
+    // 현재 문서 cart_ok.jsp에서 1번인지 2번인지 확인할 필요
+    
+    if(request.getParameter("cart_ok_move") == null)
+    	out.print("ok");
+    else
+    	response.sendRedirect("../myshop/cart_list.jsp");
 %> 

@@ -2,19 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="shopping_site.jdbc.Connect"%>
-<%@ page import="shopping_site.Util.Util"%>
-<%  
-    Connection conn = Connect.connection2();
-    Statement stmt = conn.createStatement();
-    
-    String pcode = request.getParameter("pcode");
-    String psize = request.getParameter("psize");
-    String pnum = request.getParameter("pnum");
-    
-    String sql = "select * from product where pcode='"+pcode+"'";
-    ResultSet rs = stmt.executeQuery(sql);
-    rs.next();
-%>    
+<%@ page import="shopping_site.Util.Util"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +12,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../etc/main.js?qwe22"></script>
 <script>
-function payment()
+<%-- function payment()
 {  // 결제예정금액 출력부분 
 
 	 var tot=<%=pnum%>*<%=rs.getInt("price")%>;// 총주문금액
@@ -49,7 +37,7 @@ function payment()
 	 document.getElementById("pro_save").innerText=point;
 	 document.getElementById("mem_save").innerText="0";
 	 document.getElementById("cou_save").innerText="0";
-}
+} --%>
 </script>
 </head>
 <body onload="order_init(),payment()">
@@ -70,13 +58,26 @@ function payment()
 		 <div id="ff2" align="left">가용point:500p 쿠폰:0개</div>
 		 </div>
 	 </div>
-			
-		<input type="hidden" name="pcode" value="<%=pcode%>"> 
-		<input type="hidden" name="psize" value="<%=psize%>"> 
-		<input type="hidden" name="pnum" value="<%=pnum%>"> 
+	<%  
+    Connection conn = Connect.connection2();
+    Statement stmt = conn.createStatement();
+    
+    String[] pcode = request.getParameterValues("pcode");
+    String[] psize = request.getParameterValues("psize");
+    String[] pnum = request.getParameterValues("pnum");
+    
+    // 구입하는 상품의 갯수만큼 반복문을 통해 상품정보를 출력
+    for(int i=0; i<pcode.length; i++) {
+    String sql = "select * from product where pcode='"+pcode+"'";
+    ResultSet rs = stmt.executeQuery(sql);
+    rs.next();
+    %>  		
+		<input type="hidden" name="pcode" value="<%=pcode[i]%>"> 
+		<input type="hidden" name="psize" value="<%=psize[i]%>"> 
+		<input type="hidden" name="pnum" value="<%=pnum[i]%>"> 
 		<input type="hidden" name="dis_cost" value="<%=0%>"> 
 		<input type="hidden" name="extra_cost" value="<%=0%>"> 
-		<input type="hidden" name="point" value="<%=point_save%>"> 
+		<input type="hidden" name="point" value=""> 
 		<input type="hidden" name="mem_point" value="<%=0%>"> 
 		<input type="hidden" name="cou_point" value="<%=0%>">
 
@@ -103,21 +104,23 @@ function payment()
 			<tr>
 				<td><input type="checkbox"></td>
 				<td><img src="img/<%=rs.getString("plist")%>" width="50"></td>
-				<td><%=rs.getString("pname")%> [옵션 : <%=psize%>]</td>
-				<td><%=rs.getString("price")%></td>
+				<td><%=rs.getString("pname")%> [옵션 : <%=psize[i]%>]</td>
+				<td><%=Util.comma(rs.getString("price"))%></td>
 				<td><%=pnum%></td>
-				<td><%=(rs.getInt("point") * rs.getInt("price")) / 100%></td>
+				<td><%=Util.comma((rs.getInt("point") * rs.getInt("price")) / 100)%></td>
 				<td>기본배송</td>
 				<td>[무료]</td>
-				<td><%=rs.getInt("price") * Integer.parseInt(pnum)%></td>
+				<td><%=rs.getInt("price") * Integer.parseInt(pnum[i])%></td>
 				<!-- 합계금액 -->
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td colspan="3">[기본배송]</td>
 				<td colspan="5">상품구매금액 
-				<span id="tot_price1"><%=rs.getInt("price") * Integer.parseInt(pnum)%></span>
-				+배송비 0[무료]=합계 : <span id="tot_price2"><%=rs.getInt("price") * Integer.parseInt(pnum)%></span>
+				<span id="tot_price1">
+				<%=rs.getInt("price") * Integer.parseInt(pnum[i])%>
+				</span>
+				+배송비 0[무료]=합계 : <span id="tot_price2"><%=rs.getInt("price") * Integer.parseInt(pnum[i])%></span>
 			</tr>
 			<tr>
 				<td colspan="9">! 상품의 옵션및 수량 변경은 상품상세 또는 장바구니에서 가능합니다</td>
@@ -130,9 +133,12 @@ function payment()
 			</tr>
 			</table>
 	 </div>
+	 <%
+    } 
+	 %>
 				<%
-					sql = "select * from member where userid='" + session.getAttribute("userid") + "'";
-					rs = stmt.executeQuery(sql);
+					String sql = "select * from member where userid='" + session.getAttribute("userid") + "'";
+					ResultSet rs = stmt.executeQuery(sql);
 					rs.next();
 				%>
 	 <div id="fifth">

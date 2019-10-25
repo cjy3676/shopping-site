@@ -62,7 +62,7 @@
 		String tot = df.format(tot_price);
 		%>
 		<ul>
-		<li>가용포인트<%=rs.getString("point")%>P</li>
+		<li>가용포인트<%=point%>P</li>
 		<li>총포인트<%=opoint%>P</li>
 		<li>사용포인트<%=(cou_point+mem_point)%>P</li>
 		<li>총주문<%=tot%>(<%=order_num%>회)</li>
@@ -104,8 +104,8 @@
 		<td>BOARD 게시물관리</td>
 		</tr>
 		<tr>
-		<td>WISHLIST 관심상품</td>
-		<td>ADDRESS 배송주소록관리</td>
+		<td onclick="location='../myshop/wish_list.jsp'">WISHLIST 관심상품</td>
+		<td onclick="location='../myshop/bae_view.jsp'">ADDRESS 배송주소록관리</td>
 		</tr>
 		</table>
 		</div>
@@ -114,3 +114,6 @@
 	</div>
 </body>
 </html>
+<%
+  conn.close();
+%>  
