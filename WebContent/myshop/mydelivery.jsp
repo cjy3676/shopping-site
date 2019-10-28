@@ -206,7 +206,7 @@ function bgcolor() {
 		  }
 		  else {
 		%>
-		<input type="text" name="start" id="start" value="<%=Util.datefx(now_date, ymd, bf, interval)%>"> ~
+		<input type="text" name="start" id="start" value="<%=Util.datefx(now_date, param1, param2, param3)%>"> ~
 		<input type="text" name="end" id="end" value="<%=today%>">
 		<input type="button" onclick="mydelivery(5)" value="조회">
 		<%

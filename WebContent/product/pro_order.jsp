@@ -40,7 +40,7 @@
 } --%>
 </script>
 </head>
-<body onload="order_init(),payment()">
+<body onload="order_init(), payment()">
 	<jsp:include page="../left.jsp" flush="false" />
 	<div id="right">
 	<section class="order_section">
@@ -62,25 +62,10 @@
     Connection conn = Connect.connection2();
     Statement stmt = conn.createStatement();
     
-    String[] pcode = request.getParameterValues("pcode");
-    String[] psize = request.getParameterValues("psize");
-    String[] pnum = request.getParameterValues("pnum");
-    
-    // 구입하는 상품의 갯수만큼 반복문을 통해 상품정보를 출력
-    for(int i=0; i<pcode.length; i++) {
-    String sql = "select * from product where pcode='"+pcode+"'";
-    ResultSet rs = stmt.executeQuery(sql);
-    rs.next();
-    %>  		
-		<input type="hidden" name="pcode" value="<%=pcode[i]%>"> 
-		<input type="hidden" name="psize" value="<%=psize[i]%>"> 
-		<input type="hidden" name="pnum" value="<%=pnum[i]%>"> 
-		<input type="hidden" name="dis_cost" value="<%=0%>"> 
-		<input type="hidden" name="extra_cost" value="<%=0%>"> 
-		<input type="hidden" name="point" value=""> 
-		<input type="hidden" name="mem_point" value="<%=0%>"> 
-		<input type="hidden" name="cou_point" value="<%=0%>">
-
+    String[] pcode = request.getParameter("pcode").split(",");
+    String[] psize = request.getParameter("psize").split(",");
+    String[] pnum = request.getParameter("pnum").split(",");
+    %>
 	 <div id="fourth">
 		 <table width="800" border="0">
 			<tr>
@@ -101,13 +86,39 @@
 				<td>배송비</td>
 				<td>합계</td>
 			</tr>
-			<tr>
+	<%		
+    // 구입하는 상품의 갯수만큼 반복문을 통해 상품정보를 출력
+    int tot_order = 0; // chong_jumun 총주문금액을 구할변수 : price, pnum
+	int dis_cost = 0;
+	int extra_cost = 0;
+	int tot_point = 0;
+    for(int i=0; i<pcode.length; i++) {
+    String sql = "select * from product where pcode='"+pcode[i]+"'";
+    ResultSet rs = stmt.executeQuery(sql);
+    rs.next();
+	// for문서내에서 만들어진 변수는 지역변수(for문 종료되면 사라진다)
+	tot_order = tot_order + (rs.getInt("price") * Integer.parseInt(pnum[i]));
+	tot_point = tot_point + (rs.getInt("point") * rs.getInt("price") * Integer.parseInt(pnum[i])) / 100;
+    %>  		
+	<input type="hidden" name="pcode" value="<%=pcode[i]%>"> 
+	<input type="hidden" name="psize" value="<%=psize[i]%>"> 
+	<input type="hidden" name="pnum" value="<%=pnum[i]%>"> 
+	<input type="hidden" name="dis_cost" value="<%=0%>"> 
+	<input type="hidden" name="extra_cost" value="<%=0%>"> 
+	<input type="hidden" name="point" value="<%=(rs.getInt("point") * rs.getInt("price")) / 100%>"> 
+	<input type="hidden" name="mem_point" value="<%=0%>"> 
+	<input type="hidden" name="cou_point" value="<%=0%>">
+
+		    <tr>
 				<td><input type="checkbox"></td>
 				<td><img src="img/<%=rs.getString("plist")%>" width="50"></td>
-				<td><%=rs.getString("pname")%> [옵션 : <%=psize[i]%>]</td>
-				<td><%=Util.comma(rs.getString("price"))%></td>
-				<td><%=pnum%></td>
-				<td><%=Util.comma((rs.getInt("point") * rs.getInt("price")) / 100)%></td>
+				<td>
+				<%=rs.getString("pname")%><p>
+				[옵션 : <%=psize[i]%>]
+				</td>
+				<td><%=Util.comma(rs.getInt("price"))%></td>
+				<td><%=pnum[i]%></td>
+				<td><%=Util.comma((rs.getInt("point") * rs.getInt("price")*Integer.parseInt(pnum[i])) / 100)%></td>
 				<td>기본배송</td>
 				<td>[무료]</td>
 				<td><%=rs.getInt("price") * Integer.parseInt(pnum[i])%></td>
@@ -123,24 +134,21 @@
 				+배송비 0[무료]=합계 : <span id="tot_price2"><%=rs.getInt("price") * Integer.parseInt(pnum[i])%></span>
 			</tr>
 			<tr>
-				<td colspan="9">! 상품의 옵션및 수량 변경은 상품상세 또는 장바구니에서 가능합니다</td>
-			</tr>
-			<tr>
 				<td colspan="5">
 				선택상품을 <input type="button" value="삭제하기">
 				</td>
 				<td colspan="4"><input type="button" value="이전페이지"></td>
 			</tr>
+	<% 
+      } // 상품출력 반복문 완료
+	%>		
 			</table>
 	 </div>
-	 <%
-    } 
-	 %>
-				<%
-					String sql = "select * from member where userid='" + session.getAttribute("userid") + "'";
-					ResultSet rs = stmt.executeQuery(sql);
-					rs.next();
-				%>
+	<%
+		String sql = "select * from member where userid='" + session.getAttribute("userid") + "'";
+		ResultSet rs = stmt.executeQuery(sql);
+		rs.next();
+	%>
 	 <div id="fifth">
 			<table width="800" border="1">
 			<tr>
@@ -169,10 +177,10 @@
 				<input type="text" name="addr2" value="<%=rs.getString("addr2")%>">
 				</td>
 			</tr>
-						<%
-							String phone = rs.getString("phone");
-							String[] pho = phone.split("-");
-						%>
+	<%
+		String phone = rs.getString("phone");
+		String[] pho = phone.split("-");
+	%>
 			<tr>
 				<td>일반전화 *</td>
 				<td>
@@ -185,10 +193,10 @@
 				<input type="text" name="p2" value="<%=pho[1]%>">- 
 				<input type="text" name="p3" value="<%=pho[2]%>"></td>
 			</tr>
-						<%
-							String hphone = rs.getString("hphone");
-							String[] hpho = hphone.split("-");
-						%>
+	<%
+		String hphone = rs.getString("hphone");
+		String[] hpho = hphone.split("-");
+	%>
 			<tr>
 				<td>휴대전화</td>
 				<td>
@@ -201,10 +209,10 @@
 				<input type="text" name="hp2" value="<%=hpho[1]%>">- 
 				<input type="text" name="hp3" value="<%=hpho[2]%>"></td>
 			</tr>
-						<%
-							String email = rs.getString("email");
-							String[] ema = email.split("@");
-						%>
+	<%
+		String email = rs.getString("email");
+		String[] ema = email.split("@");
+	%>
 			<tr>
 				<td>이메일 *</td>
 				<td>
@@ -306,19 +314,24 @@
 					<td>총 결제 예정 금액</td>
 				</tr>
 				<tr>
-					<td><span id="tot"></span></td><!-- chong -->
-					<td><span id="dis_cost"></span></td><!-- halin -->
-					<td><span id="tot_cost"></span></td><!-- hap -->
+					<td><span id="tot"><%=Util.comma(tot_order)%><!-- chong -->
+					</span></td>
+					<td><span id="dis_cost"><%=Util.comma(dis_cost + extra_cost)%><!-- halin -->
+					</span></td>
+					<td><span id="tot_cost"><%=Util.comma(tot_order - (dis_cost + extra_cost))%><!-- hap -->
+					</span></td>
 				</tr>
 				</table>
 				<table width="800" border="1">
 				<tr>
 					<td>총 할인 금액</td>
-					<td><span id="tot_dis"></span></td><!-- halin1 -->
+					<td><span id="tot_dis"><%=dis_cost%><!-- halin1 -->
+					</span></td>
 				</tr>
 				<tr>
 					<td>총 부가결제 금액</td>
-					<td><span id="extra_cost"></span></td><!-- buga -->
+					<td><span id="extra_cost"><%=extra_cost%><!-- buga -->
+					</span></td>
 				</tr>
 				</table>
 	 </div>
@@ -385,9 +398,10 @@
 				  <td>
 			<!-- 결제수단의 오른쪽 부분 -->
 			<div>
-				<span id="pay_way"></span> 최종결제금액
+				<span id="pay_way"></span> 최종결제금액 <!-- pay_sudan -->
 			</div>
-			<div id="tot_pay"></div><!-- pay_hap -->
+			<div id="tot_pay"><%=Util.comma(tot_order - (dis_cost + extra_cost))%><!-- pay_hap --> 
+			</div>
 			<div>
 			<input type="submit" value="결제하기">
 			</div>
@@ -395,19 +409,20 @@
 				<table>
 				<tr>
 					<td>총 적립예정금액</td>
-					<td><span id="tot_save"></span>P</td><!-- chong_juk -->
+					<td><span id="tot_save"><%=Util.comma(tot_point)%><!-- chong_juk -->
+					</span>P</td>
 				</tr>
-				<tr>
+                <!-- <tr>
 					<td>상품별 point</td>
-					<td><span id="pro_save"></span>P</td><!-- sang_juk -->
-				</tr>
+					<td><span id="pro_save"></span>P</td>sang_juk
+				</tr> -->
 				<tr>
 					<td>회원 point</td>
-					<td><span id="mem_save"> </span>P</td><!-- mem_juk -->
+					<td><span id="mem_save">0</span>P</td><!-- mem_juk -->
 				</tr>
 				<tr>
 					<td>쿠폰 point</td>
-					<td><span id="cou_save"> </span>P</td><!-- cou_juk -->
+					<td><span id="cou_save">0</span>P</td><!-- cou_juk -->
 				</tr>
 				</table>
 			</div>
@@ -433,5 +448,32 @@
 		</section>
 		<jsp:include page="../footer.jsp" flush="false" />
 	</div>
+	<script>
+	function order_init() {
+		var p = "<%=pho[0]%>";
+		var hp = "<%=hpho[0]%>";
+		var p1 = document.getElementById("p1");
+		var hp1 = document.getElementById("hp1");
+		
+		for(i=0; i<p1.length; i++) {
+			if(p1[i].value == p) {
+				p1.selectedIndex = i;
+				document.getElementById("op1").selectedIndex = i;
+			}
+		}
+		
+		for(i=0; i<hp1.length; i++) {
+			if(hp1[i].value == hp) {
+				hp1.selectedIndex = i;
+				document.getElementById("ohp1").selectedIndex = i;
+			}
+		}
+	}
+	</script>
 </body>
 </html>
+<%
+  stmt.close();
+  conn.close();
+
+%>
