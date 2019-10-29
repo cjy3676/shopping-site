@@ -65,7 +65,57 @@
     String[] pcode = request.getParameter("pcode").split(",");
     String[] psize = request.getParameter("psize").split(",");
     String[] pnum = request.getParameter("pnum").split(",");
+    
+    String[] cart_id = request.getParameter("cart_id").split(",");
+    // pro_order_ok.jsp로 전달
     %>
+    <script>
+    function main_chk() {
+    	var subchk = document.getElementsByClassName("subchk");
+    	var n = subchk.length;
+    	
+    	if(document.getElementById("mainchk").checked) {
+    		// subchk를 전부 체크 => subchk의 checked 속성을 true
+    		for(i=0; i<n; i++)
+    			subchk[i].checked = true;
+    	}
+    	else {
+    		// subchk를 전부 해제 => subchk의 checked 속성을 false
+    		for(i=0; i<n; i++)
+    			subchk[i].checked = false;
+    	}
+    }
+    
+    function sub_chk() {
+    	var subchk = document.getElementsByClassName("subchk");
+    	var n = subchk.length;
+    	
+    	// subchk의 체크여부를 판단
+    	var chk = 0;
+    	for(i=0; i<n; i++)
+    		if(!subchk[i].checked) // subchk[i].checked == false
+    		chk = 1;
+    	if(chk == 0)
+    		document.getElementById("mainchk").checked = true;
+    	else
+    		document.getElementById("mainchk").checked = false;
+    }
+    
+    function sel_del() {
+    	var subchk = document.getElementsByClassName("subchk");
+    	var n = subchk.length;
+    	alert(n);
+    	for(i=n-1; i>=0; i--) {
+    		if(subchk[i].checked) {
+    			$(".data").eq(i).remove();
+    			$(".order_body1").eq(i).remove();
+    			$(".order_body2").eq(i).remove();
+    			$(".order_body3").eq(i).remove();
+    		// class 이름 : data, order_body1, order_body2, order_body3을 숨기기 => 조건 (checked가 참)
+    		}
+    	}
+    }
+    </script>
 	 <div id="fourth">
 		 <table width="800" border="0">
 			<tr>
@@ -99,17 +149,20 @@
 	// for문서내에서 만들어진 변수는 지역변수(for문 종료되면 사라진다)
 	tot_order = tot_order + (rs.getInt("price") * Integer.parseInt(pnum[i]));
 	tot_point = tot_point + (rs.getInt("point") * rs.getInt("price") * Integer.parseInt(pnum[i])) / 100;
-    %>  		
+    %>
+    <div class="data">  		
 	<input type="hidden" name="pcode" value="<%=pcode[i]%>"> 
 	<input type="hidden" name="psize" value="<%=psize[i]%>"> 
-	<input type="hidden" name="pnum" value="<%=pnum[i]%>"> 
+	<input type="hidden" name="pnum" value="<%=pnum[i]%>">
+	<input type="hidden" name="cart_id" value="<%=cart_id[i]%>"> 
 	<input type="hidden" name="dis_cost" value="<%=0%>"> 
 	<input type="hidden" name="extra_cost" value="<%=0%>"> 
 	<input type="hidden" name="point" value="<%=(rs.getInt("point") * rs.getInt("price")) / 100%>"> 
 	<input type="hidden" name="mem_point" value="<%=0%>"> 
 	<input type="hidden" name="cou_point" value="<%=0%>">
+	</div>
 
-		    <tr>
+		    <tr class="order_body1">
 				<td><input type="checkbox"></td>
 				<td><img src="img/<%=rs.getString("plist")%>" width="50"></td>
 				<td>
@@ -124,7 +177,8 @@
 				<td><%=rs.getInt("price") * Integer.parseInt(pnum[i])%></td>
 				<!-- 합계금액 -->
 			</tr>
-			<tr>
+			
+			<tr class="order_body2">
 				<td>&nbsp;</td>
 				<td colspan="3">[기본배송]</td>
 				<td colspan="5">상품구매금액 
@@ -133,15 +187,21 @@
 				</span>
 				+배송비 0[무료]=합계 : <span id="tot_price2"><%=rs.getInt("price") * Integer.parseInt(pnum[i])%></span>
 			</tr>
-			<tr>
+			
+			<tr class="order_body3">
 				<td colspan="5">
-				선택상품을 <input type="button" value="삭제하기">
+				선택상품을 <input type="button" class="del_tn" value="삭제하기">
 				</td>
 				<td colspan="4"><input type="button" value="이전페이지"></td>
 			</tr>
 	<% 
       } // 상품출력 반복문 완료
-	%>		
+	%>
+	        <tr>
+	        <td>
+	        <input type="button" onclick="sel_del()" value="선택상품삭제">
+	        </td>
+	        </tr>		
 			</table>
 	 </div>
 	<%
@@ -297,7 +357,7 @@
 			<tr>
 				<td>배송메세지</td>
 				<td>
-				<textarea rows="3" cols="50" name="deli_mag"></textarea>
+				<textarea rows="3" cols="50" name="deli_mag"></textarea><!-- bae_msg -->
 				</td>
 			</tr>
 			</table>
@@ -314,23 +374,28 @@
 					<td>총 결제 예정 금액</td>
 				</tr>
 				<tr>
-					<td><span id="tot"><%=Util.comma(tot_order)%><!-- chong -->
+					<td><span id="tot"><!-- chong -->
+					<%=Util.comma(tot_order)%>
 					</span></td>
-					<td><span id="dis_cost"><%=Util.comma(dis_cost + extra_cost)%><!-- halin -->
+					<td><span id="dis_cost"><!-- halin -->
+					<%=Util.comma(dis_cost + extra_cost)%>
 					</span></td>
-					<td><span id="tot_cost"><%=Util.comma(tot_order - (dis_cost + extra_cost))%><!-- hap -->
+					<td><span id="tot_cost"><!-- hap -->
+					<%=Util.comma(tot_order - (dis_cost + extra_cost))%>
 					</span></td>
 				</tr>
 				</table>
 				<table width="800" border="1">
 				<tr>
 					<td>총 할인 금액</td>
-					<td><span id="tot_dis"><%=dis_cost%><!-- halin1 -->
+					<td><span id="tot_dis"><!-- halin1 -->
+					<%=dis_cost%>
 					</span></td>
 				</tr>
 				<tr>
 					<td>총 부가결제 금액</td>
-					<td><span id="extra_cost"><%=extra_cost%><!-- buga -->
+					<td><span id="extra_cost"><!-- buga -->
+					<%=extra_cost%>
 					</span></td>
 				</tr>
 				</table>
@@ -469,11 +534,29 @@
 			}
 		}
 	}
+	
+	$(function(){
+		$(".del_tn").click(function(){
+			var $test = $(".del_tn");
+			// 연속적이지 않은 클래스의 인덱스값을 구하기
+			var n = $test.index(this);
+			$(".order_body1").eq(n).remove();
+			$(".order_body2").eq(n).remove();
+			$(".order_body3").eq(n).remove();
+			$(".data").eq(n).remove();
+		});
+	});
+	
+	document.onkeydown = reload_no;
+	
+	function reload_no() {
+		if(event.keyCode == 116)
+			return false;
+	}
 	</script>
 </body>
 </html>
 <%
   stmt.close();
   conn.close();
-
 %>
