@@ -11,6 +11,9 @@
     // 아이디, 비밀번호 requst
     String userid = request.getParameter("userid");
     String pwd = request.getParameter("pwd");
+    String pcode = request.getParameter("pcode");
+    String psize = request.getParameter("psize");
+    String pnum = request.getParameter("pnum");
     
     // 회원인지 아닌지 체크
     String sql = "select * from member where userid='"+userid+"' ";
@@ -21,7 +24,10 @@
     	// 회원이면 => 세션변수	
     	session.setAttribute("userid",rs.getString("userid"));
     	session.setAttribute("name",rs.getString("name"));
-    	response.sendRedirect("../main/index.jsp");
+    	if(pcode.equals("null"))
+    		response.sendRedirect("../main/index.jsp");
+    	else
+    		response.sendRedirect("../product/pro_order.jsp?pcode="+pcode+"&psize"+psize+"&pnum"+pnum);
     }
     else { // 회원이 아니다 => 
 %>

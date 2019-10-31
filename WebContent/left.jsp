@@ -118,6 +118,7 @@ function search_submit(pp) {
 		</ul>
 		
 		<ul>
+		    <li>&nbsp;</li>
 			<li><a href="../product/pro_list.jsp?pbest=1">BEST</a></li>
 			<li><a href="../product/pro_list.jsp?pnew=1">NEW</a></li>
 		</ul>
@@ -137,7 +138,7 @@ function search_submit(pp) {
 		<ul>
 		<li>
 		<%
-		if(session.getAttribute("userid")==null) {
+		if(session.getAttribute("userid") == null) {
 		%>
 		<a href="../login/login.jsp">LOGIN</a>
 		<%
