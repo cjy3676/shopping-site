@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="shopping_site.jdbc.Connect"%>
 <%@ page import="shopping_site.Util.Util"%> 
-<%
+<% 
     String pcode = request.getParameter("pcode");
     String psize = request.getParameter("psize");
     String pnum = request.getParameter("pnum");

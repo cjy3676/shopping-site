@@ -51,7 +51,7 @@
     Date today = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     String order_num = sdf.format(today)+"-"+request.getParameter("p2")+request.getParameter("p3");
-    
+     
     // unmember 테이블에 저장, porder테이블에 저장
     Connection conn = Connect.connection2();
     String sql = "insert into unmember(name,zip,addr1,addr2,phone,hphone,email,order_num,writeday)";

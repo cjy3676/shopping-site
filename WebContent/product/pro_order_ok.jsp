@@ -88,7 +88,7 @@
 	pstmt.setString(6, dis_cost);
 	pstmt.setString(7, extra_cost);
 	pstmt.setString(8, point);
-	pstmt.setString(9, mem_point);
+	pstmt.setString(9, mem_point); 
 	pstmt.setString(10, cou_point);
 	pstmt.setString(11, pay_way);
 	pstmt.setString(12, pay_method);

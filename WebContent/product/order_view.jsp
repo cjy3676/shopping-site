@@ -137,7 +137,7 @@
 	<tr>
 	<td>우편번호</td>
 	<td><%=rs.getString("zip")%></td>
-	</tr>
+	</tr> 
 	<tr>
 	<td>주소</td>
 	<td><%=rs.getString("addr1")%><%=rs.getString("addr2")%></td>

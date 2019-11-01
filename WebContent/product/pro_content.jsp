@@ -151,7 +151,7 @@ function check(pp) {
 		<div class="seventh">Q/A</div>
 		<!-- pro_content.jsp 끝 -->
 		</form>
-		</section>
+		</section> 
 	<jsp:include page="../footer.jsp" flush="false" />
 	</div>
 	<!-- 장바구니관련 레이어, 관심상품관련 레이어 -->
