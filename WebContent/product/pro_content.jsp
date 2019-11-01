@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="shopping_site.jdbc.Connect"%>
-<%@ page import="java.text.DecimalFormat" %> 
+<%@ page import="java.text.DecimalFormat"%> 
+<%@ page import="java.net.URLEncoder"%> 
 <%  
     Connection conn = Connect.connection2();
     Statement stmt = conn.createStatement();
@@ -12,6 +13,13 @@
     String sql = "select * from product where id="+id;
     ResultSet rs = stmt.executeQuery(sql);
     rs.next();
+    
+    Cookie[] cookies = request.getCookies();
+    int co_num = cookies.length;
+    co_num = co_num - 1;
+    Cookie cookie = new Cookie("pcode"+co_num,rs.getString("pcode"));
+    cookie.setMaxAge(600);
+    response.addCookie(cookie);
     
     DecimalFormat df=new DecimalFormat("#,###");
 %>    
@@ -39,6 +47,10 @@ $(function() {
 		document.getElementById("price").innerText = imsi_price;
 	});
 });
+
+function check(pp) {
+	pp.psize.value = encodeURIComponent(document.getElementById("psize").value);
+}
 </script>
 </head>
 <body>
@@ -68,7 +80,7 @@ $(function() {
 		</div>
 		<div id="right6">
 		<input type="text" name="pnum" id="pnum" value="1" style="width:30px">
-		<span id="price"><%=rs.getString("price")%></span>원
+		<span id="price"><%=df.format(rs.getInt("price"))%></span>원
 		</div>
 		<div id="right7">
 		<button id="buy">BUY NOW</button>
@@ -159,3 +171,7 @@ $(function() {
 	</div>
 </body>
 </html>
+<%
+    stmt.close();
+    conn.close();
+%>

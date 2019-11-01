@@ -66,7 +66,7 @@ function payment()
 	<jsp:include page="../left.jsp" flush="false" />
 	<div id="right">
 	<section class="order_section">
-		<form method="post" action="pro_order_ok.jsp" name="cjy">
+		<form method="post" action="unmember_order.jsp" name="cjy">
 	<div id="first" align="center">주문서 작성</div>
 	<div id="second">
 		<img src="img2/img_order_step2.gif" width="800">
@@ -220,23 +220,23 @@ function payment()
 			<tr>
 				<td>주문하시는 분 *</td>
 				<td>
-				<input type="text" name="name" value="<%=rs.getString("name")%>">
+				<input type="text" name="name" value="<%=name%>">
 				</td>
 			</tr>
 			<tr>
 				<td rowspan="3">주소 *</td>
 				<td>
-				<input type="text" name="zip" value="<%=rs.getString("zip")%>"> 
+				<input type="text" name="zip" value="<%=zip%>"> 
 				<input type="button" value="우편번호" onclick="oaddr_search(0)"></td>
 			</tr>
 			<tr>
 				<td>
-				<input type="text" name="addr1" value="<%=rs.getString("addr1")%>">
+				<input type="text" name="addr1" value="<%=addr1%>">
 				</td>
 			</tr>
 			<tr>
 				<td>
-				<input type="text" name="addr2" value="<%=rs.getString("addr2")%>">
+				<input type="text" name="addr2" value="<%=addr2%>">
 				</td>
 			</tr>
 
@@ -301,24 +301,24 @@ function payment()
 			<tr>
 				<td>받으시는 분 *</td>
 				<td>
-				<input type="text" name="oname" value="<%=rs.getString("name")%>">
+				<input type="text" name="oname" value="<%=name%>">
 				</td>
 			</tr>
 			<tr>
 				<td rowspan="3">주소 *</td>
 				<td>
-				<input type="text" name="ozip" value="<%=rs.getString("zip")%>"> 
+				<input type="text" name="ozip" value="<%=zip%>"> 
 				<input type="button" value="우편번호" onclick="oaddr_search(1)">
 				</td>
 			</tr>
 			<tr>
 				<td>
-				<input type="text" name="oaddr1" value="<%=rs.getString("addr1")%>">
+				<input type="text" name="oaddr1" value="<%=addr1%>">
 				</td>
 			</tr>
 			<tr>
 				<td>
-				<input type="text" name="oaddr2" value="<%=rs.getString("addr2")%>">
+				<input type="text" name="oaddr2" value="<%=addr2%>">
 				</td>
 			</tr>
 			<tr>
