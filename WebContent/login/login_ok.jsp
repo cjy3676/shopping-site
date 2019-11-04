@@ -24,10 +24,16 @@
     	// 회원이면 => 세션변수	
     	session.setAttribute("userid",rs.getString("userid"));
     	session.setAttribute("name",rs.getString("name"));
+    	
+    	if(session.getAttribute("userid").equals("admin")) {
+    		response.sendRedirect("../admin/index.jsp");
+    	}
+    	else {
     	if(pcode.equals("null"))
     		response.sendRedirect("../main/index.jsp");
     	else
     		response.sendRedirect("../product/pro_order.jsp?pcode="+pcode+"&psize"+psize+"&pnum"+pnum);
+    	}
     }
     else { // 회원이 아니다 => 
 %>

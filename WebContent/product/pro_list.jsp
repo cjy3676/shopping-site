@@ -5,7 +5,7 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="shopping_site.Command.Pro_list"%>			
 <%@ page import="shopping_site.Dto.Product"%>			
-<%@ page import="java.util.ArrayList"%>	    
+<%@ page import="java.util.ArrayList"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,29 +14,30 @@
 <link rel="stylesheet" type="text/css" href="../etc/main.css?after">
 <script src="../etc/main.js"></script>
 <%
-  String pcode = request.getParameter("pcode");
-  String pbest = request.getParameter("pbest"); /* best */
-  String pnew = request.getParameter("pnew"); /* new1 */
-  String search_char = request.getParameter("search_char"); /* search */
-  int search_num = 0; /* sea */
-  if(request.getParameter("search_num") != null)
-	  search_num = Integer.parseInt(request.getParameter("search_num"));
+    request.setCharacterEncoding("UTF-8");
+    String pcode = request.getParameter("pcode");
+    String pbest = request.getParameter("pbest"); /* best */
+    String pnew = request.getParameter("pnew"); /* new1 */
+    String search_char = request.getParameter("search_char"); /* search */
+    int search_num = 0; /* sea */
+    if(request.getParameter("search_num") != null)
+    	search_num = Integer.parseInt(request.getParameter("search_num"));
   
-  String param = "";
-  int non_pcode = 0; /* k */
-   if(pcode != null) {
-	   non_pcode = 1;
-	   param = pcode;
-   }
-   else if(pbest != null)
-	   param = pbest;
-   else if(pnew != null)
-	   param = pnew;
-   else if(search_char != null)
-	   param = search_char ;
-   // pcode일때만 non_pcode=1이고, 나머지는 0
+    String param = "";
+    int non_pcode = 0; /* k */
+     if(pcode != null) {
+    	 non_pcode = 1;
+	     param = pcode;
+     }
+     else if(pbest != null)
+    	 param = pbest;
+     else if(pnew != null)
+	     param = pnew;
+     else if(search_char != null)
+	     param = search_char ;
+     // pcode일때만 non_pcode=1이고, 나머지는 0
 		   
-   if(non_pcode == 1) {
+     if(non_pcode == 1) {
 %>
 <script>
 window.onload = function() {

@@ -39,4 +39,6 @@
    pstmt.setInt(17,dto.getChk3());   
    pstmt.setInt(18,dto.getChk4());
    pstmt.execute(); 
+   
+   response.sendRedirect("../main/index.jsp");
 %>   

@@ -16,12 +16,19 @@
     
     Cookie[] cookies = request.getCookies();
     int co_num = cookies.length;
-    co_num = co_num - 1;
-    Cookie cookie = new Cookie("pcode"+co_num,rs.getString("pcode"));
-    cookie.setMaxAge(600);
-    response.addCookie(cookie);
+    int co_end;
+    if(co_num == 1) {
+    	co_end = 0;
+    }
+    else {
+    	co_end = Integer.parseInt(cookies[co_num-2].getName().substring(5));
+    }
+    /* co_num = co_num - 1; */
+    Cookie cookie = new Cookie("pcode"+(co_end+1),rs.getString("pcode"));
+    cookie.setMaxAge(600); // 저장 기본시간 : 10~20분
+    response.addCookie(cookie); // 사용자 하드디스크에 저장
     
-    DecimalFormat df=new DecimalFormat("#,###");
+    DecimalFormat df = new DecimalFormat("#,###");
 %>    
 <!DOCTYPE html>
 <html>
@@ -108,9 +115,9 @@ function check(pp) {
 		  String ss;
 		  switch(rs.getInt("pwash")) {
 		  case 0: ss = "물세탁"; break;
-		  case 1: ss = "물세탁"; break;
-		  case 2: ss = "물세탁"; break;
-		  case 3: ss = "물세탁"; break;
+		  case 1: ss = "손세탁"; break;
+		  case 2: ss = "드라이크리닝"; break;
+		  case 3: ss = "울세탁"; break;
 		  default: ss = "모름";
 		  }
 		  // 제조국 0~4까지 상품코드

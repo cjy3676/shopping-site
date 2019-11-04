@@ -120,7 +120,7 @@ function search_submit(pp) {
 		<ul>
 		    <li>&nbsp;</li>
 			<li><a href="../product/pro_list.jsp?pbest=1">BEST</a></li>
-			<li><a href="../product/pro_list.jsp?pnew=1">NEW</a></li>
+			<li><a href="../product/pro_list.jsp?pnew=2">NEW</a></li>
 		</ul>
 
 		<ul>
